@@ -1,0 +1,213 @@
+@import 'tailwindcss';
+
+/*
+ * One page, five design languages (plus the neutral landing view). Every section pulls its fonts and colours
+ * from these tokens, so a style can be tweaked in one place.
+ */
+@theme {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, monospace;
+  --font-editorial: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-soft: 'Nunito Variable', ui-rounded, ui-sans-serif, system-ui, sans-serif;
+  --font-tech: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-warm: 'Fraunces Variable', ui-serif, Georgia, serif;
+  --font-playful: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-elegant: 'Cormorant Garamond Variable', ui-serif, Georgia, serif;
+
+  /* Brand basics: nav, landing view, legal dialog */
+  --color-paper: #f4f1ea;
+  --color-ink: #151515;
+  --color-vermilion: #d9502a;
+
+  /* 01 · Dark & modern */
+  --color-void: #09090b;
+  --color-graphite: #131317;
+  --color-violet: #8b7bff;
+  --color-aqua: #5ce1e6;
+
+  /* 02 · Soft & reassuring */
+  --color-mist: #edf3ef;
+  --color-pine: #1d3b33;
+  --color-sage: #5f8f7d;
+  --color-sage-deep: #44705f;
+  --color-sage-soft: #d6e8dd;
+  --color-peach: #f6cfbb;
+
+  /* 03 · Warm & handmade */
+  --color-sand: #f3e8da;
+  --color-clay: #c4583b;
+  --color-clay-deep: #a2432a;
+  --color-espresso: #3b2a1f;
+  --color-ochre: #e3a33b;
+  --color-butter: #f7dc8e;
+
+  /* 04 · Bold & playful */
+  --color-sun: #ffd93d;
+  --color-bubblegum: #ff85bd;
+  --color-lilac: #bcaaff;
+  --color-mint: #7fe3b4;
+
+  /* 05 · Elegant & timeless */
+  --color-forest: #0f2a24;
+  --color-gold: #cbae7a;
+  --color-ivory: #f2ece0;
+
+  --shadow-soft: 0 24px 60px -28px rgb(29 59 51 / 0.35);
+  --shadow-hard-sm: 3px 3px 0 0 #111;
+  --shadow-hard: 6px 6px 0 0 #111;
+  --shadow-hard-lg: 10px 10px 0 0 #111;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  --animate-wall-up: wall-up 50s linear infinite;
+  --animate-wall-down: wall-down 50s linear infinite;
+  --animate-drift-a: drift-a 22s ease-in-out infinite;
+  --animate-drift-b: drift-b 26s ease-in-out infinite;
+  --animate-word-in: word-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes wall-up {
+    to {
+      transform: translateY(-50%);
+    }
+  }
+  @keyframes wall-down {
+    from {
+      transform: translateY(-50%);
+    }
+  }
+  @keyframes drift-a {
+    50% {
+      transform: translate(-8%, 10%) scale(1.15);
+    }
+  }
+  @keyframes drift-b {
+    50% {
+      transform: translate(12%, -8%) scale(0.9);
+    }
+  }
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.4em);
+      filter: blur(12px);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.35em);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-ink);
+  }
+
+  /* Picks up each section's text colour, so focus stays visible on every background. */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Fraunces with its soft, rounded axis turned all the way up. */
+@utility font-warm-soft {
+  font-family: var(--font-warm);
+  font-variation-settings: 'SOFT' 100;
+}
+
+/* Film-grain overlay; control strength with opacity. */
+@utility noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Landing page design wall: tilted in 3D, nudged by the pointer (--mx / --my from -1 to 1). */
+.wall-3d {
+  transform: translate(-50%, -50%) scale(var(--wall-scale, 1)) rotateX(calc(20deg - var(--my, 0) * 3deg))
+    rotateY(calc(-16deg + var(--mx, 0) * 4deg)) rotateZ(9deg);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.wall-mask {
+  mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+}
+@media (min-width: 64rem) {
+  .wall-mask {
+    mask-image:
+      linear-gradient(to right, transparent, #000 26%), linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+    mask-composite: intersect;
+  }
+}
+
+/* Scroll reveal, toggled by <Reveal>. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hand-drawn SVG strokes that draw themselves once visible (paths use pathLength="1"). */
+.draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.6, 0, 0.2, 1);
+  transition-delay: var(--draw-delay, 0ms);
+}
+.draw.is-visible path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .draw path {
+    stroke-dashoffset: 0;
+  }
+}
