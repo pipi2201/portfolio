@@ -76,13 +76,6 @@ export function Hero() {
 
       <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-5 pt-28 sm:px-8 lg:min-h-svh lg:pt-24 lg:pb-14">
         <div className="max-w-[40rem]">
-          <p className="inline-flex animate-rise items-center gap-2 rounded-full border border-ink/10 bg-white/70 px-3 py-1.5 text-xs font-medium backdrop-blur">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500/60" />
-              <span className="relative size-2 rounded-full bg-emerald-500" />
-            </span>
-            {h.status}
-          </p>
 
           <h1 id="hero-title" className="mt-7 text-[clamp(2.9rem,min(6vw,9vh),5.5rem)] leading-[0.95] font-semibold tracking-[-0.055em]">
             <span className="sr-only">{h.srTitle}</span>

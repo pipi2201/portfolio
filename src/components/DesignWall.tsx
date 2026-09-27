@@ -1,5 +1,9 @@
 import type { CSSProperties, ReactNode, Ref } from 'react'
+import aerztezentrumHero from '../assets/work/aerztezentrum-hero.webp'
+import aerztezentrumMobile from '../assets/work/aerztezentrum-mobile.webp'
 import bioresoHero from '../assets/work/bioreso-hero.webp'
+import heilimpulsHero from '../assets/work/heilimpuls-hero.webp'
+import heilimpulsMobile from '../assets/work/heilimpuls-mobile.webp'
 import kinderphysioHero from '../assets/work/kinderphysio-hero.webp'
 import kinderphysioMobile from '../assets/work/kinderphysio-mobile.webp'
 import menzelHero from '../assets/work/menzel-witrisal-hero.webp'
@@ -10,31 +14,34 @@ import { MiniBold, MiniDark, MiniEditorial, MiniElegant, MiniSoft, MiniWarm, Pho
 // Style samples mixed with real client work. Each column loops endlessly, alternating direction.
 const COLUMNS: { cards: ReactNode[]; duration: number; reverse?: boolean }[] = [
   {
-    duration: 48,
+    duration: 56,
     cards: [
       <MiniDark key="dark" />,
       <Shot key="kp" src={kinderphysioHero} domain="kinderphysiolinz.com" />,
+      <Phone key="hi" src={heilimpulsMobile} />,
       <MiniWarm key="warm" />,
       <Phone key="mw" src={menzelMobile} />,
     ],
   },
   {
-    duration: 60,
+    duration: 68,
     reverse: true,
     cards: [
       <MiniSoft key="soft" />,
       <MiniBold key="bold" />,
       <Shot key="mw" src={menzelHero} domain="menzel-witrisal.at" />,
+      <Phone key="az" src={aerztezentrumMobile} />,
       <MiniEditorial key="editorial" />,
     ],
   },
   {
-    duration: 54,
+    duration: 58,
     cards: [
       <MiniElegant key="elegant" />,
       <Shot key="br" src={bioresoHero} domain="bioreso.ines.codes" />,
+      <Shot key="hi" src={heilimpulsHero} domain="heilimpuls.at" />,
       <Phone key="kp" src={kinderphysioMobile} />,
-      <MiniSoft key="soft" />,
+      <Shot key="az" src={aerztezentrumHero} domain="aerztezentrum-gallneukirchen.at" />,
     ],
   },
 ]

@@ -47,7 +47,8 @@ const mobile = await browser.newPage({
   hasTouch: true,
 })
 await mobile.goto(url, { waitUntil: 'networkidle', timeout: 60_000 })
-await mobile.waitForTimeout(1200)
+// Scroll-in animations can start off-screen and widen the page until they have played.
+await warmUp(mobile)
 const phone = await mobile.screenshot()
 
 await browser.close()
