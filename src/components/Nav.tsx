@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
-import { PAGE_IDS, STYLES, styleOfSection, type StyleId } from '../styles'
+import { BRAND_DOT, PAGE_IDS, STYLES, styleOfSection, type StyleId } from '../styles'
 import { LanguageSwitch } from './LanguageSwitch'
 import { LogoMark } from './LogoMark'
 
@@ -16,8 +16,14 @@ const CTA_ACCENT: Record<StyleId, string> = {
   elegant: 'bg-gold text-forest shadow-gold/45',
 }
 
-/** On the landing view it stays white, like the hero's own button. */
-const CTA_HERO = 'bg-white text-ink ring-1 ring-ink/8 shadow-[rgb(80_60_120/0.18)]'
+/** On the landing view and About it takes the brand violet. */
+const CTA_BRAND = 'bg-violet-deep text-white shadow-violet-deep/35'
+
+/** The dot under a nav link: its section's style colour, or the brand violet for About. */
+const dotOf = (id: string) => {
+  const style = styleOfSection(id)
+  return style ? STYLES[style].dot : BRAND_DOT
+}
 
 const CTA_BASE =
   'font-medium shadow-lg transition-[background-color,color,box-shadow,filter] duration-500 hover:brightness-105'
@@ -27,7 +33,7 @@ export function Nav() {
   const active = useActiveSection(PAGE_IDS)
   const [open, setOpen] = useState(false)
   const activeStyle = styleOfSection(active)
-  const accent = activeStyle ? CTA_ACCENT[activeStyle] : CTA_HERO
+  const accent = activeStyle ? CTA_ACCENT[activeStyle] : CTA_BRAND
 
   useEffect(() => {
     if (!open) return
@@ -40,24 +46,23 @@ export function Nav() {
     <header className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-4">
       <nav
         aria-label={t.nav.label}
-        className="relative flex w-full items-center gap-1 rounded-full border border-ink/6 bg-white/85 p-1.5 pl-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_1px_2px_rgb(0_0_0/0.04),0_12px_32px_-12px_rgb(40_30_80/0.2)] backdrop-blur-2xl backdrop-saturate-150 md:w-auto"
+        className="relative flex w-full items-center gap-1 rounded-full border border-ink/6 bg-white/85 p-1.5 pl-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_1px_2px_rgb(0_0_0/0.04),0_12px_32px_-12px_rgb(40_30_80/0.2)] backdrop-blur-2xl backdrop-saturate-150 lg:w-auto"
       >
-        <a href="#top" onClick={() => setOpen(false)} className="mr-auto flex items-center gap-2.5 rounded-full py-1 md:mr-5">
+        <a href="#top" onClick={() => setOpen(false)} className="mr-auto flex items-center gap-2.5 rounded-full py-1 lg:mr-5">
           <LogoMark className="h-4.25 w-auto" />
-          <span className="font-editorial text-[1.35rem] leading-none tracking-tight">Ines Puhr</span>
+          <span className="font-editorial text-[1.35rem] leading-none tracking-tight whitespace-nowrap">Ines Puhr</span>
         </a>
 
-        <ul className="hidden items-center md:flex">
+        <ul className="hidden items-center lg:flex">
           {t.nav.links.map((link) => {
             const isActive = active === link.id
-            const style = styleOfSection(link.id)
             return (
               <li key={link.id}>
                 <a
                   href={`#${link.id}`}
                   aria-current={isActive ? 'true' : undefined}
                   className={cn(
-                    'relative block rounded-full px-3 py-2 text-sm transition-colors',
+                    'relative block rounded-full px-3 py-2 text-sm whitespace-nowrap transition-colors',
                     isActive ? 'text-ink' : 'text-ink/55 hover:text-ink',
                   )}
                 >
@@ -68,7 +73,7 @@ export function Nav() {
                       'absolute bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-full transition duration-300',
                       !isActive && 'scale-0 opacity-0',
                     )}
-                    style={{ background: style && STYLES[style].dot }}
+                    style={{ background: dotOf(link.id) }}
                   />
                 </a>
               </li>
@@ -76,13 +81,13 @@ export function Nav() {
           })}
         </ul>
 
-        <span aria-hidden className="mx-2 hidden h-5 w-px bg-ink/10 md:block" />
+        <span aria-hidden className="mx-2 hidden h-5 w-px bg-ink/10 lg:block" />
 
         <LanguageSwitch />
 
         <a
           href="#contact"
-          className={cn('group hidden h-9 items-center gap-1.5 rounded-full pr-3.5 pl-4 text-sm sm:inline-flex', CTA_BASE, accent)}
+          className={cn('group hidden h-9 items-center gap-1.5 rounded-full pr-3.5 pl-4 text-sm whitespace-nowrap sm:inline-flex', CTA_BASE, accent)}
         >
           {t.nav.cta}
           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -94,7 +99,7 @@ export function Nav() {
           aria-controls="mobile-menu"
           aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
           onClick={() => setOpen((o) => !o)}
-          className="grid size-9 place-items-center rounded-full transition hover:bg-ink/5 md:hidden"
+          className="grid size-9 place-items-center rounded-full transition hover:bg-ink/5 lg:hidden"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -102,26 +107,21 @@ export function Nav() {
         {open && (
           <div
             id="mobile-menu"
-            className="absolute inset-x-0 top-[calc(100%+0.5rem)] rounded-3xl border border-ink/7 bg-white p-2 shadow-xl md:hidden"
+            className="absolute inset-x-0 top-[calc(100%+0.5rem)] rounded-3xl border border-ink/7 bg-white p-2 shadow-xl lg:hidden"
           >
             <ul>
-              {t.nav.links.map((link) => {
-                const style = styleOfSection(link.id)
-                return (
-                  <li key={link.id}>
-                    <a
-                      href={`#${link.id}`}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-2xl px-4 py-3.5 font-editorial text-2xl transition hover:bg-ink/5"
-                    >
-                      {link.label}
-                      {active === link.id && (
-                        <span className="size-2 rounded-full" style={{ background: style && STYLES[style].dot }} />
-                      )}
-                    </a>
-                  </li>
-                )
-              })}
+              {t.nav.links.map((link) => (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between rounded-2xl px-4 py-3.5 font-editorial text-2xl transition hover:bg-ink/5"
+                  >
+                    {link.label}
+                    {active === link.id && <span className="size-2 rounded-full" style={{ background: dotOf(link.id) }} />}
+                  </a>
+                </li>
+              ))}
             </ul>
             <a
               href="#contact"

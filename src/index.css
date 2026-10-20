@@ -18,6 +18,8 @@
   --color-paper: #f4f1ea;
   --color-ink: #151515;
   --color-vermilion: #d9502a;
+  --color-haze: #f6f1f7;
+  --color-haze-deep: #e9e0f3;
 
   /* 01 · Dark & modern */
   --color-void: #09090b;
@@ -110,6 +112,15 @@
 }
 
 @layer base {
+  :root {
+    --gutter: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    :root {
+      --gutter: 2rem;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
@@ -143,6 +154,14 @@
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+/* Page container: content up to 1200px wide, with the gutter on either side. */
+@utility wrap {
+  width: 100%;
+  max-width: calc(75rem + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
 /* Fraunces with its soft, rounded axis turned all the way up. */
@@ -210,7 +229,8 @@
 @media (min-width: 64rem) {
   .wall-mask {
     mask-image:
-      linear-gradient(to right, transparent, #000 26%), linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+      linear-gradient(to right, transparent 4%, rgb(0 0 0 / 0.35) 22%, #000 42%),
+      linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
     mask-composite: intersect;
   }
 }

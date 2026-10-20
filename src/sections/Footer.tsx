@@ -10,7 +10,7 @@ export function Footer({ onOpenLegal }: { onOpenLegal: (id: LegalId) => void }) 
 
   return (
     <footer className="bg-forest font-sans text-sm text-ivory/60">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="wrap">
         <div className="flex flex-col gap-6 border-t border-gold/15 py-10 sm:flex-row sm:items-center sm:justify-between">
           <p className="flex items-center gap-3">
             <LogoMark className="h-3.5 w-auto" />
@@ -31,7 +31,6 @@ export function Footer({ onOpenLegal }: { onOpenLegal: (id: LegalId) => void }) 
             </a>
           </nav>
         </div>
-        <p className="pb-10 text-xs text-ivory/55">{f.noTracking}</p>
       </div>
     </footer>
   )

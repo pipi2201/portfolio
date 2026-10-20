@@ -20,7 +20,7 @@ export function StyleRail() {
         {STYLE_ORDER.map((id) => {
           const style = STYLES[id]
           const isActive = active === style.section
-          const label = `${style.number} · ${t.styles[id].name}`
+          const label = `${style.number} · ${t.styles[id]}`
           return (
             <li key={id} className="group relative flex">
               <a

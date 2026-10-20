@@ -10,7 +10,6 @@ import menzelHero from '../assets/work/menzel-witrisal-hero.webp'
 import menzelMobile from '../assets/work/menzel-witrisal-mobile.webp'
 import { cn } from '../lib/cn'
 import {
-  MiniBold,
   MiniDark,
   MiniEditorial,
   MiniElegant,
@@ -21,7 +20,8 @@ import {
   Shot,
 } from './MiniSites'
 
-// Style samples mixed with real client work. Each column loops endlessly, alternating direction.
+// Real client work mixed with coded style samples, all from health, therapy and coaching.
+// Each column loops endlessly, alternating direction.
 const COLUMNS: { cards: ReactNode[]; duration: number; reverse?: boolean }[] = [
   {
     duration: 50,
@@ -38,7 +38,6 @@ const COLUMNS: { cards: ReactNode[]; duration: number; reverse?: boolean }[] = [
     cards: [
       <MiniSoft key="soft" />,
       <Phone key="hi" src={heilimpulsMobile} />,
-      <MiniBold key="bold" />,
       <Shot key="mw" src={menzelHero} domain="menzel-witrisal.at" />,
       <Phone key="az" src={aerztezentrumMobile} />,
       <MiniEditorial key="editorial" />,

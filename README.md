@@ -1,18 +1,22 @@
 # Ines Puhr — Portfolio
 
-A single-page portfolio built with React, TypeScript, Vite and Tailwind CSS v4.
+A single-page portfolio built with React, TypeScript, Vite and Tailwind CSS v4, for one audience: therapists, coaches and healers. Its one goal is a booked free call, so every "Book a free call" button leads to the contact form.
 
-The concept: **five sections, five design styles.** Each section is designed in a different visual language, and a small "running header" at the top of each one names the style and who it would suit. Visitors can see the range of designs and spot the one that fits their business.
+The concept: **five sections, five design styles.** Each styled section opens with a small label that names its style ("Style 01 · Dark & Modern"), so visitors see the range of designs while they read.
 
-The landing view is the eye-catcher: the headline "Websites & Software, so ___ wie Sie." cycles through one adjective per style (each in that style's typeface and look), next to a tilted, slowly scrolling wall of website designs — coded samples of each style plus the real client sites — over a drifting colour field. The style chips below the buttons jump to their sections. Wall contents live in `src/components/DesignWall.tsx` and `MiniSites.tsx`.
+The landing view: the headline "Websites for your practice, as ___ as you." cycles through one word per style (modern, calm, warm, playful, elegant), each in that style's typeface and look, next to a tilted, slowly scrolling wall of health, therapy and coaching websites (real client sites plus coded samples). Wall contents live in `src/components/DesignWall.tsx` and `MiniSites.tsx`.
 
-| # | Section | Style | Suits e.g. |
-|---|---|---|---|
-| 01 | Work | Dark & modern (Space Grotesk, glow, grid) | Fitness, tech, creative studios |
-| 02 | Services | Soft & reassuring (Nunito, sage and peach) | Medical practices, physiotherapy, pharmacies |
-| 03 | Process | Warm & handmade (Fraunces, sand, hand-drawn strokes) | Cafés, crafts, yoga & wellness |
-| 04 | Pricing | Bold & playful (Bricolage Grotesque, neo-brutalism) | Shops, events, young brands |
-| 05 | Contact | Elegant & timeless (Cormorant Garamond, forest and gold) | Private clinics, aesthetics, hospitality |
+| Section | Style |
+|---|---|
+| Hero | Brand look (Geist and Instrument Serif, violet) |
+| Work | 01 · Dark & modern (Space Grotesk, glow, grid) |
+| Why me | 02 · Soft & reassuring (Nunito, sage and peach) |
+| Process | 03 · Warm & handmade (Fraunces, sand, hand-drawn strokes) |
+| Packages | 04 · Bold & playful (Bricolage Grotesque, neo-brutalism) |
+| About | Brand look, with your photo in an arch |
+| Contact | 05 · Elegant & timeless (Cormorant Garamond, forest and gold) |
+
+Layout rules: content at most 1200px wide (the `wrap` utility), 96px section padding on desktop, body text at least 16px, one primary button style per section.
 
 **Copy guideline:** keep it short. Every message appears once on the page, and every list item is one sentence.
 
@@ -32,18 +36,18 @@ bun run lint
 
 ```
 src/
-  content.ts        all copy, German and English. Edit texts and prices here.
+  content.ts        all copy, German and English. Edit texts and packages here.
   config.ts         name and email address
   styles.ts         the five styles: order, numbers, colours
   index.css         Tailwind theme: fonts and colour palettes for every style
-  sections/         one file per section (Hero, Work, Services, Process, Pricing, Contact, Footer)
-  components/       nav, side "style rail", style tag, reveal animation, legal dialog
+  sections/         one file per section (Hero, Work, Why, Process, Packages, About, Contact, Footer)
+  components/       nav, side "style rail", style tag, design wall, reveal animation, legal dialog
   assets/work/      screenshots of the client websites
 scripts/
   screenshot.mjs    captures a client website for the Work section
 ```
 
-**Language:** German is the default. The DE/EN switch in the nav changes the language, and `?lang=en` links straight to the English version. Nothing is stored on the visitor's device.
+**Language:** English is the default. The EN/DE switch in the nav changes the language, and `?lang=de` links straight to the German version. Nothing is stored on the visitor's device.
 
 ## Adding a project to "Work"
 
@@ -55,7 +59,7 @@ scripts/
 2. Add it to `PROJECTS` in `src/sections/Work.tsx` (import the two images).
 3. Add its texts under `work.projects` in `src/content.ts`, in both `de` and `en`. The `ProjectId` type there tells TypeScript about the new id.
 
-To mark a project as unfinished, give it a `status` (and optionally a `note`), as `bioreso` has.
+To mark a project as unfinished, set `wip: true` on it (as `bioreso` has): its button then says "Preview" instead of "Visit website".
 
 ## Deployment
 
@@ -67,5 +71,7 @@ Nice to know for the privacy statement: the site sets no cookies, has no trackin
 
 - [ ] **Impressum:** fill in the `[…]` placeholders under `legal.imprint` in `src/content.ts` (address, trade, authority, chamber, VAT ID).
 - [ ] **Datenschutz:** fill in the address under `legal.privacy` and check the text matches your server setup (e.g. how long server logs are kept).
-- [ ] **Prices:** consider noting whether prices include VAT (or that you're exempt as a small business).
+- [ ] **Your photo:** add it to `src/assets/` and set `PHOTO` at the top of `src/sections/About.tsx`. Until then the About arch shows a monogram.
+- [ ] **Package details:** check the numbers in `packages.plans` in `src/content.ts` (1 round of changes, up to 5 pages, 3 rounds). They came from the design spec as suggestions.
+- [ ] **Location:** About says "Based in Cyprus". Make sure it matches the Impressum and privacy statement, which currently assume Austria.
 - [ ] **Social preview:** once the domain is known, add an `og:image` and `og:url` (absolute URLs) to `index.html`.

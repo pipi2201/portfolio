@@ -4,21 +4,22 @@ import { Nav } from './components/Nav'
 import { StyleRail } from './components/StyleRail'
 import type { InterestId, LegalId, PlanId } from './content'
 import { useLang } from './i18n'
+import { About } from './sections/About'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
 import { Hero } from './sections/Hero'
-import { Pricing } from './sections/Pricing'
+import { Packages } from './sections/Packages'
 import { Process } from './sections/Process'
-import { Services } from './sections/Services'
+import { Why } from './sections/Why'
 import { Work } from './sections/Work'
 
 export default function App() {
   const { t } = useLang()
-  // Shared between pricing and contact: "Ask about …" on a plan pre-selects it in the enquiry form.
+  // Shared between packages and contact: "Ask about …" on a package pre-selects it in the enquiry form.
   const [interests, setInterests] = useState<InterestId[]>([])
   const [legal, setLegal] = useState<LegalId | null>(null)
 
-  const choosePlan = (id: PlanId) => setInterests((prev) => (prev.includes(id) ? prev : [...prev, id]))
+  const choosePlan = (id: PlanId) => setInterests((prev) => [...prev.filter((x) => x !== 'unsure' && x !== id), id])
 
   return (
     <>
@@ -33,9 +34,10 @@ export default function App() {
       <main id="main">
         <Hero />
         <Work />
-        <Services />
+        <Why />
         <Process />
-        <Pricing onChoose={choosePlan} />
+        <Packages onChoose={choosePlan} />
+        <About />
         <Contact interests={interests} setInterests={setInterests} />
       </main>
       <Footer onOpenLegal={setLegal} />

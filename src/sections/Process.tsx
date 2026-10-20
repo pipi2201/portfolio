@@ -55,17 +55,10 @@ export function Process() {
         <path d={TORN_EDGE} fill="currentColor" />
       </svg>
 
-      <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
-        <StyleTag id="warm" className="border-b border-espresso/15 pb-4" />
-
-        <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:items-start">
+      <div className="wrap py-18 lg:py-24">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
           <Reveal className="lg:col-span-8">
-            <p className="flex items-center gap-2 text-lg text-clay-deep italic">
-              <svg aria-hidden viewBox="0 0 24 24" className="size-5 fill-ochre">
-                <path d="M12 0c1 8 4 11 12 12-8 1-11 4-12 12-1-8-4-11-12-12 8-1 11-4 12-12Z" />
-              </svg>
-              {p.eyebrow}
-            </p>
+            <StyleTag id="warm" />
             <h2 id="process-title" className="mt-4 text-5xl leading-[1.02] font-normal tracking-tight text-balance sm:text-7xl">
               {p.title.before}
               <span className="relative inline-block italic text-clay">
@@ -86,7 +79,7 @@ export function Process() {
           </Reveal>
         </div>
 
-        <ol className="mt-20 grid gap-14 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4 lg:gap-8">
+        <ol className="mt-16 grid gap-14 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-8">
           {p.steps.map((step, i) => (
             <Reveal as="li" key={step.title} delay={i * 140} className="relative">
               <div className="relative grid size-20 place-items-center">

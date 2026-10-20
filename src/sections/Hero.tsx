@@ -18,8 +18,8 @@ const WORD: Record<StyleId, string> = {
 const CYCLE_MS = 2600
 
 /**
- * The landing view: a headline whose key word cycles through the five styles,
- * next to a tilted wall of website designs (style samples plus real client sites).
+ * The landing view: a headline whose key word cycles through the page's styles,
+ * next to a tilted wall of health, therapy and coaching websites.
  */
 export function Hero() {
   const { t } = useLang()
@@ -29,6 +29,8 @@ export function Hero() {
   const styleId = STYLE_ORDER[index]
 
   useEffect(() => {
+    // Visitors who prefer less motion keep the first word.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const timer = window.setInterval(() => setIndex((i) => (i + 1) % STYLE_ORDER.length), CYCLE_MS)
     return () => window.clearInterval(timer)
   }, [])
@@ -57,16 +59,15 @@ export function Hero() {
       </div>
       <div aria-hidden className="noise pointer-events-none absolute inset-0 -z-10 opacity-[0.07] mix-blend-multiply" />
 
-      <DesignWall ref={wallRef} className="absolute inset-y-0 right-0 hidden w-[56%] lg:block" />
+      <DesignWall ref={wallRef} className="absolute inset-y-0 right-0 hidden w-[54%] lg:block" />
 
       {/* Extra bottom room on large screens: the Work section fades in over the last 10rem of this view. */}
-      <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-5 pt-28 sm:px-8 lg:min-h-svh lg:pt-24 lg:pb-54">
+      <div className="wrap relative flex flex-col justify-center pt-28 lg:min-h-svh lg:pt-24 lg:pb-54">
         <div className="max-w-[40rem]">
-
-          <h1 id="hero-title" className="mt-7 text-[clamp(2.9rem,min(6vw,9vh),5.5rem)] leading-[0.95] font-semibold tracking-[-0.055em]">
+          <h1 id="hero-title" className="text-[clamp(2.9rem,min(6vw,9vh),5.5rem)] leading-[0.95] font-semibold tracking-[-0.055em]">
             <span className="sr-only">{h.srTitle}</span>
             <span aria-hidden className="block">
-              <span className="block max-w-[8em] animate-rise [animation-delay:60ms]">{h.title.start}</span>
+              <span className="block max-w-[7.4em] animate-rise [animation-delay:60ms]">{h.title.start}</span>
               <span className="block animate-rise whitespace-nowrap [animation-delay:140ms]">
                 {h.title.before}{' '}
                 <span key={index} className={cn('relative inline-block animate-word-in', WORD[styleId])}>
@@ -95,7 +96,7 @@ export function Hero() {
           <div className="mt-8 flex animate-rise flex-wrap items-center gap-x-6 gap-y-3 [animation-delay:380ms] sm:mt-9">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[15px] font-medium shadow-[0_10px_30px_-12px_rgb(80_60_120/0.35)] ring-1 ring-ink/6 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_-12px_rgb(80_60_120/0.45)] sm:px-6"
+              className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-[15px] font-medium text-white shadow-[0_10px_30px_-12px_rgb(40_30_80/0.5)] transition hover:-translate-y-0.5 hover:bg-[#2a2433] sm:px-6"
             >
               {h.primaryCta}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -108,7 +109,6 @@ export function Hero() {
               <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
             </a>
           </div>
-
         </div>
       </div>
 

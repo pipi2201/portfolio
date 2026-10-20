@@ -1,4 +1,4 @@
-import { ArrowUpRight, Heart, Lock, MousePointer2, Pointer } from 'lucide-react'
+import { ArrowUpRight, Lock, MousePointer2, Pointer } from 'lucide-react'
 import { useState } from 'react'
 import bioresoFull from '../assets/work/bioreso-full.webp'
 import bioresoMobile from '../assets/work/bioreso-mobile.webp'
@@ -12,7 +12,15 @@ import type { ProjectId } from '../content'
 import { useLang } from '../i18n'
 import { cn, fill } from '../lib/cn'
 
-type Project = { id: ProjectId; url: string; domain: string; full: string; mobile: string }
+type Project = {
+  id: ProjectId
+  url: string
+  domain: string
+  full: string
+  mobile: string
+  /** still being built: the link says "Preview" instead of "Visit website" */
+  wip?: boolean
+}
 
 const PROJECTS: Project[] = [
   {
@@ -35,6 +43,7 @@ const PROJECTS: Project[] = [
     domain: 'bioreso.ines.codes',
     full: bioresoFull,
     mobile: bioresoMobile,
+    wip: true,
   },
 ]
 
@@ -62,17 +71,11 @@ export function Work() {
         <div className="absolute top-[45%] -right-40 size-120 rounded-full bg-aqua/10 blur-[120px]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-5 pt-[calc(var(--blend)+3rem)] pb-24 sm:px-8 sm:pt-[calc(var(--blend)+4rem)] sm:pb-32">
-        <StyleTag id="dark" className="border-b border-white/10 pb-4 text-white/80" />
-
-        <Reveal className="mt-14 flex flex-col gap-8 lg:mt-20 lg:flex-row lg:items-end lg:justify-between">
+      <div className="wrap pt-[calc(var(--blend)+2rem)] pb-18 lg:pt-[calc(var(--blend)+3rem)] lg:pb-24">
+        <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="flex items-center gap-3 text-sm text-white/60">
-              <span aria-hidden className="h-px w-8 bg-linear-to-r from-violet to-aqua" />
-              {w.eyebrow}
-              <span className="text-white/45 tabular-nums">({pad(PROJECTS.length)})</span>
-            </p>
-            <h2 id="work-title" className="mt-5 text-5xl font-semibold tracking-[-0.035em] text-balance sm:text-7xl">
+            <StyleTag id="dark" className="text-white" />
+            <h2 id="work-title" className="mt-4 text-5xl font-semibold tracking-[-0.035em] text-balance sm:text-7xl">
               {w.title.before}
               <span className="bg-linear-to-r from-violet via-[#b1a6ff] to-aqua bg-clip-text text-transparent">{w.title.em}</span>
               {w.title.after}
@@ -90,7 +93,7 @@ export function Work() {
           </div>
         </Reveal>
 
-        <div className="mt-16 space-y-8 lg:mt-20 lg:space-y-[22vh]">
+        <div className="mt-12 space-y-8 lg:mt-16 lg:space-y-[22vh]">
           {PROJECTS.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} total={PROJECTS.length} />
           ))}
@@ -158,35 +161,22 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
         </div>
 
         <div className="flex flex-col px-3 pt-2 pb-4 sm:px-5 lg:col-span-5 lg:py-6 lg:pr-6">
-          <div className="flex items-center justify-between gap-4 text-sm text-white/55">
-            <span className="tabular-nums">
-              {pad(index + 1)} / {pad(total)}
-            </span>
-            {copy.status && (
-              <span className="inline-flex items-center gap-2 rounded-full border border-violet/40 bg-violet/10 px-3 py-1 text-xs font-medium text-violet">
-                <span className="size-1.5 animate-pulse rounded-full bg-violet" />
-                {copy.status}
-              </span>
-            )}
-          </div>
+          <p className="text-sm text-white/55 tabular-nums">
+            {pad(index + 1)} / {pad(total)}
+          </p>
 
           <h3 className="mt-5 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{copy.name}</h3>
           <p className="mt-2 text-white/50">{copy.client}</p>
           <p className="mt-6 text-lg leading-relaxed text-white/75">{copy.description}</p>
-          {copy.note && (
-            <p className="mt-4 flex items-start gap-2 text-sm leading-relaxed text-aqua">
-              <Heart className="mt-0.5 size-4 shrink-0" />
-              {copy.note}
-            </p>
-          )}
+          <span aria-hidden className="min-h-8 flex-1" />
 
           <a
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/link mt-auto inline-flex items-center gap-1.5 self-start rounded-full bg-white px-5 py-2.5 text-sm font-medium text-void transition-colors hover:bg-aqua"
+            className="group/link inline-flex items-center gap-1.5 self-start rounded-full bg-white px-5 py-2.5 text-[15px] font-medium text-void transition-colors hover:bg-aqua"
           >
-            {t.work.visit}
+            {project.wip ? t.work.preview : t.work.visit}
             <ArrowUpRight className="size-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
           </a>
         </div>

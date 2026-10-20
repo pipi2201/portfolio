@@ -39,8 +39,12 @@ export function Contact({ interests, setInterests }: ContactProps) {
   const [copied, setCopied] = useState(false)
   const [shared, setShared] = useState(false)
 
+  // Packages can be combined (Carefree goes with any of them); "Not sure yet" stands on its own.
   const toggleInterest = (id: InterestId) =>
-    setInterests((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]))
+    setInterests((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id)
+      return id === 'unsure' ? [id] : [...prev.filter((x) => x !== 'unsure'), id]
+    })
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -96,25 +100,19 @@ export function Contact({ interests, setInterests }: ContactProps) {
         <div className="absolute top-0 left-1/2 h-96 w-200 -translate-x-1/2 rounded-full bg-gold/10 blur-[120px]" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-        <StyleTag id="elegant" className="border-b border-gold/20 pb-4 font-sans text-ivory/75" />
+      <div className="wrap py-18 lg:py-24">
+        <StyleTag id="elegant" className="font-sans text-ivory" />
 
-        <Reveal className="mt-16 text-center lg:mt-24">
-          <p className={cn(label, 'flex items-center justify-center gap-4')}>
-            <span aria-hidden className="h-px w-10 bg-gold/50" />
-            {c.eyebrow}
-            <span aria-hidden className="h-px w-10 bg-gold/50" />
-          </p>
-          <h2 id="contact-title" className="mx-auto mt-8 max-w-4xl text-5xl leading-[1.05] font-light text-balance sm:text-7xl">
+        <Reveal className="mt-10 text-center lg:mt-12">
+          <h2 id="contact-title" className="mx-auto max-w-4xl text-5xl leading-[1.05] font-light text-balance sm:text-7xl">
             {c.title.before}
             <em className="text-gold">{c.title.em}</em>
             {c.title.after}
           </h2>
-          <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-ivory/75 sm:text-[1.4rem]">{c.lead}</p>
-          <Ornament className="mx-auto mt-10" />
+          <p className="mx-auto mt-6 max-w-2xl text-xl leading-relaxed text-ivory/75 sm:text-[1.4rem]">{c.lead}</p>
         </Reveal>
 
-        <div className="mt-16 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-16">
+        <div className="mt-14 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-16">
           <Reveal as="div" className="lg:col-span-7">
             <form onSubmit={handleSubmit} className="space-y-10">
               <fieldset>
