@@ -9,25 +9,35 @@ import kinderphysioMobile from '../assets/work/kinderphysio-mobile.webp'
 import menzelHero from '../assets/work/menzel-witrisal-hero.webp'
 import menzelMobile from '../assets/work/menzel-witrisal-mobile.webp'
 import { cn } from '../lib/cn'
-import { MiniBold, MiniDark, MiniEditorial, MiniElegant, MiniSoft, MiniWarm, Phone, Shot } from './MiniSites'
+import {
+  MiniBold,
+  MiniDark,
+  MiniEditorial,
+  MiniElegant,
+  MiniSoft,
+  MiniSoftPhone,
+  MiniWarm,
+  Phone,
+  Shot,
+} from './MiniSites'
 
 // Style samples mixed with real client work. Each column loops endlessly, alternating direction.
 const COLUMNS: { cards: ReactNode[]; duration: number; reverse?: boolean }[] = [
   {
-    duration: 56,
+    duration: 50,
     cards: [
       <MiniDark key="dark" />,
       <Shot key="kp" src={kinderphysioHero} domain="kinderphysiolinz.com" />,
-      <Phone key="hi" src={heilimpulsMobile} />,
       <MiniWarm key="warm" />,
       <Phone key="mw" src={menzelMobile} />,
     ],
   },
   {
-    duration: 68,
+    duration: 74,
     reverse: true,
     cards: [
       <MiniSoft key="soft" />,
+      <Phone key="hi" src={heilimpulsMobile} />,
       <MiniBold key="bold" />,
       <Shot key="mw" src={menzelHero} domain="menzel-witrisal.at" />,
       <Phone key="az" src={aerztezentrumMobile} />,
@@ -35,10 +45,11 @@ const COLUMNS: { cards: ReactNode[]; duration: number; reverse?: boolean }[] = [
     ],
   },
   {
-    duration: 58,
+    duration: 66,
     cards: [
       <MiniElegant key="elegant" />,
       <Shot key="br" src={bioresoHero} domain="bioreso.ines.codes" />,
+      <MiniSoftPhone key="soft-phone" />,
       <Shot key="hi" src={heilimpulsHero} domain="heilimpuls.at" />,
       <Phone key="kp" src={kinderphysioMobile} />,
       <Shot key="az" src={aerztezentrumHero} domain="aerztezentrum-gallneukirchen.at" />,
@@ -57,11 +68,15 @@ export function DesignWall({ className, ref }: { className?: string; ref?: Ref<H
         {COLUMNS.map((column, i) => (
           <div
             key={i}
-            className={cn('flex flex-col', column.reverse ? 'animate-wall-down' : 'animate-wall-up')}
+            className={cn('flex flex-col self-center will-change-transform', column.reverse ? 'animate-wall-down' : 'animate-wall-up')}
             style={{ animationDuration: `${column.duration}s` } as CSSProperties}
           >
-            {/* Rendered twice so the loop is seamless. */}
-            {[0, 1].map((copy) => (
+            {/*
+              Four identical copies; the animation moves exactly one copy (25%) and restarts.
+              Columns are centred (not stretched by the grid), so the tilted viewport always
+              sits inside the middle copies and never reaches an end.
+            */}
+            {[0, 1, 2, 3].map((copy) => (
               <div key={copy} className="flex flex-col gap-6 pb-6">
                 {column.cards}
               </div>

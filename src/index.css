@@ -23,6 +23,7 @@
   --color-void: #09090b;
   --color-graphite: #131317;
   --color-violet: #8b7bff;
+  --color-violet-deep: #6c5ce7;
   --color-aqua: #5ce1e6;
 
   /* 02 · Soft & reassuring */
@@ -72,14 +73,15 @@
   --animate-drift-b: drift-b 26s ease-in-out infinite;
   --animate-word-in: word-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 
+  /* One copy of a design-wall column = 25% (each column renders four copies). */
   @keyframes wall-up {
     to {
-      transform: translateY(-50%);
+      transform: translateY(-25%);
     }
   }
   @keyframes wall-down {
     from {
-      transform: translateY(-50%);
+      transform: translateY(-25%);
     }
   }
   @keyframes drift-a {
@@ -147,6 +149,41 @@
 @utility font-warm-soft {
   font-family: var(--font-warm);
   font-variation-settings: 'SOFT' 100;
+}
+
+/*
+ * Background of the Work section's top, which overlaps the landing view by --seam: fades in, then runs from lavender
+ * through violet into the dark background over --blend. Both follow a smoothstep curve (stops generated, lightness
+ * spaced evenly in OKLab): a gradient that changes speed abruptly shows up as a visible line.
+ */
+@utility work-blend {
+  background-color: var(--color-void);
+  background-image: linear-gradient(
+    to bottom,
+    #ece6f6 0,
+    #e7e0f5 calc(var(--blend) * 0.083),
+    #d8d1f2 calc(var(--blend) * 0.167),
+    #c2b9ec calc(var(--blend) * 0.25),
+    #a89be5 calc(var(--blend) * 0.333),
+    #8b7ec9 calc(var(--blend) * 0.417),
+    #6d61aa calc(var(--blend) * 0.5),
+    #51458c calc(var(--blend) * 0.583),
+    #382f66 calc(var(--blend) * 0.667),
+    #24203f calc(var(--blend) * 0.75),
+    #151423 calc(var(--blend) * 0.833),
+    #0c0c11 calc(var(--blend) * 0.917),
+    var(--color-void) var(--blend)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0) 0,
+    rgb(0 0 0 / 0.074) calc(var(--seam) * 0.167),
+    rgb(0 0 0 / 0.259) calc(var(--seam) * 0.333),
+    rgb(0 0 0 / 0.5) calc(var(--seam) * 0.5),
+    rgb(0 0 0 / 0.741) calc(var(--seam) * 0.667),
+    rgb(0 0 0 / 0.926) calc(var(--seam) * 0.833),
+    black var(--seam)
+  );
 }
 
 /* Film-grain overlay; control strength with opacity. */

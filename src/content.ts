@@ -28,7 +28,7 @@ type LegalDoc = { title: string; blocks: { heading: string; lines: string[] }[] 
 
 const de = {
   meta: {
-    title: 'Ines Puhr — Webdesign & Entwicklung für Praxen und kleine Unternehmen',
+    title: 'Ines Puhr — Webdesign & Entwicklung für kleine Unternehmen',
   },
   skipLink: 'Zum Inhalt springen',
   nav: {
@@ -56,15 +56,13 @@ const de = {
   } satisfies Record<StyleId, { name: string; audience: string }>,
 
   hero: {
-    status: 'Offen für neue Projekte',
-    // Reads: "Websites & Software, / so [word] / wie Sie." The word cycles, one per style in STYLE_ORDER.
-    title: { start: 'Websites & Software,', before: 'so', after: 'wie Sie.' },
+    // Reads: "Websites & Software, / so [word] / wie du." The word cycles, one per style in STYLE_ORDER.
+    title: { start: 'Websites & Software,', before: 'so', after: 'wie du.' },
     words: ['modern', 'ruhig', 'herzlich', 'verspielt', 'elegant'],
-    srTitle: 'Websites & Software, so individuell wie Sie.',
-    sub: 'Individuell gestaltet und programmiert für Praxen und kleine Unternehmen — in jedem Stil.',
+    srTitle: 'Websites & Software, so individuell wie du.',
+    sub: 'Individuell gestaltet und programmiert für kleine Unternehmen — in deinem Stil.',
     primaryCta: 'Projekt anfragen',
     secondaryCta: 'Stile ansehen',
-    stylesLabel: 'Fünf Stile auf dieser Seite',
   },
 
   work: {
@@ -104,23 +102,23 @@ const de = {
     items: [
       { id: 'design', title: 'Webdesign', text: 'Individuell gestaltet statt Vorlage von der Stange.' },
       { id: 'development', title: 'Entwicklung', text: 'Schnell und optimiert für Handy, Tablet und Computer.' },
-      { id: 'copy', title: 'Texte', text: 'Klar und verständlich, in Ihrem Ton.' },
+      { id: 'copy', title: 'Texte', text: 'Klar und verständlich, in deinem Ton.' },
       { id: 'photos', title: 'Bildbearbeitung', text: 'Licht, Farben und Zuschnitt für stimmige Fotos.' },
-      { id: 'hosting', title: 'Hosting & Wartung', text: 'Damit Ihre Website sicher und aktuell bleibt.' },
-      { id: 'advice', title: 'Beratung', text: 'Ehrlicher Rat zu Ihrem gesamten Online-Auftritt.' },
+      { id: 'hosting', title: 'Hosting & Wartung', text: 'Damit deine Website sicher und aktuell bleibt.' },
+      { id: 'advice', title: 'Beratung', text: 'Ehrlicher Rat zu deinem gesamten Online-Auftritt.' },
     ] as Service[],
   },
 
   process: {
     eyebrow: 'Ablauf',
     title: { before: 'So arbeiten wir ', em: 'zusammen' },
-    note: 'Der Ablauf passt sich Ihnen an — nicht umgekehrt.',
+    note: 'Der Ablauf passt sich dir an — nicht umgekehrt.',
     noteSignature: 'Ines',
     steps: [
-      { title: 'Kennenlernen', text: 'Ein Telefonat oder Treffen: Was brauchen Sie, was gefällt Ihnen?' },
+      { title: 'Kennenlernen', text: 'Ein Telefonat oder E-Mail/WhatsApp Verkehr: Was brauchst du, was gefällt dir?' },
       { title: 'Entwurf', text: 'Ein Logo oder ein paar Stichworte reichen für den ersten Entwurf.' },
       { title: 'Feinschliff', text: 'Wir passen an, bis alles stimmt.' },
-      { title: 'Online', text: 'Ihre Website geht live — auf Wunsch betreue ich sie weiter.' },
+      { title: 'Online', text: 'Deine Website geht live — auf Wunsch betreue ich sie weiter.' },
     ],
   },
 
@@ -160,12 +158,12 @@ const de = {
 
   contact: {
     eyebrow: 'Kontakt',
-    title: { before: 'Erzählen Sie mir von Ihrem ', em: 'Projekt', after: '.' },
-    lead: 'Schreiben Sie mir — die Details besprechen wir meist in einem kurzen Telefonat.',
+    title: { before: 'Erzähl mir von deinem ', em: 'Projekt', after: '.' },
+    lead: 'Schreib mir — die Details besprechen wir meist in einem kurzen Telefonat.',
     form: {
-      whoLabel: 'Wofür suchen Sie eine Website?',
+      whoLabel: 'Wofür suchst du eine Website?',
       who: ['Arztpraxis', 'Therapiepraxis', 'Apotheke', 'Coaching & Beratung', 'Kleines Unternehmen', 'Etwas anderes'],
-      interestLabel: 'Was interessiert Sie?',
+      interestLabel: 'Was interessiert dich?',
       interests: [
         { id: 'onepager', label: 'Onepager' },
         { id: 'care', label: 'Sorglos-Paket' },
@@ -173,12 +171,12 @@ const de = {
         { id: 'extras', label: 'Texte & Fotos' },
         { id: 'advice', label: 'Beratung' },
       ] as { id: InterestId; label: string }[],
-      nameLabel: 'Ihr Name',
+      nameLabel: 'Dein Name',
       namePlaceholder: 'Vor- und Nachname',
-      messageLabel: 'Ihre Nachricht',
+      messageLabel: 'Deine Nachricht',
       messagePlaceholder: 'Ein paar Stichworte reichen.',
       submit: 'E-Mail vorbereiten',
-      hint: 'Öffnet Ihr E-Mail-Programm. Hier wird nichts gespeichert.',
+      hint: 'Öffnet dein E-Mail-Programm. Hier wird nichts gespeichert.',
     },
     mail: {
       subject: 'Website-Anfrage',
@@ -194,7 +192,7 @@ const de = {
       copied: 'Kopiert!',
     },
     referral: {
-      text: 'Sie kennen jemanden, der eine Website braucht?',
+      text: 'Du kennst jemanden, der eine Website braucht?',
       share: 'Seite weiterempfehlen',
       shared: 'Link kopiert!',
       shareText: 'Ines Puhr gestaltet Websites für Praxen und kleine Unternehmen — schau mal:',
@@ -243,13 +241,13 @@ const de = {
         {
           heading: 'Kontakt per E-Mail',
           lines: [
-            'Wenn Sie mir schreiben, verwende ich Ihre Angaben ausschließlich zur Bearbeitung Ihrer Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Das Anfrageformular dieser Seite speichert oder überträgt selbst keine Daten — es bereitet nur eine E-Mail in Ihrem E-Mail-Programm vor.',
+            'Wenn du mir schreibst, verwende ich deine Angaben ausschließlich zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Das Anfrageformular dieser Seite speichert oder überträgt selbst keine Daten — es bereitet nur eine E-Mail in deinem E-Mail-Programm vor.',
           ],
         },
         {
-          heading: 'Ihre Rechte',
+          heading: 'Deine Rechte',
           lines: [
-            'Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch — eine kurze E-Mail genügt. Beschwerden können Sie bei der Österreichischen Datenschutzbehörde (dsb.gv.at) einbringen.',
+            'Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch — eine kurze E-Mail genügt. Beschwerden kannst du bei der Österreichischen Datenschutzbehörde (dsb.gv.at) einbringen.',
           ],
         },
         { heading: 'Verantwortlich', lines: ['Ines Puhr, [Adresse], ines.puhr@outlook.at'] },
@@ -290,14 +288,12 @@ const en: Content = {
   },
 
   hero: {
-    status: 'Open for new projects',
     title: { start: 'Websites & software,', before: 'as', after: 'as you.' },
     words: ['modern', 'calm', 'warm', 'playful', 'elegant'],
     srTitle: 'Websites & software, as individual as you.',
     sub: 'Custom-designed and built for practices and small businesses — in any style.',
     primaryCta: 'Start a project',
     secondaryCta: 'See the styles',
-    stylesLabel: 'Five styles on this page',
   },
 
   work: {

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { DesignWall } from '../components/DesignWall'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
-import { STYLE_ORDER, STYLES, type StyleId } from '../styles'
+import { STYLE_ORDER, type StyleId } from '../styles'
 
 /** How the cycling headline word looks in each style. */
 const WORD: Record<StyleId, string> = {
@@ -25,15 +25,13 @@ export function Hero() {
   const { t } = useLang()
   const h = t.hero
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
   const wallRef = useRef<HTMLDivElement>(null)
   const styleId = STYLE_ORDER[index]
 
   useEffect(() => {
-    if (paused) return
     const timer = window.setInterval(() => setIndex((i) => (i + 1) % STYLE_ORDER.length), CYCLE_MS)
     return () => window.clearInterval(timer)
-  }, [paused])
+  }, [])
 
   function tilt(e: PointerEvent<HTMLElement>) {
     const wall = wallRef.current
@@ -42,19 +40,6 @@ export function Hero() {
     wall.style.setProperty('--mx', (((e.clientX - rect.left) / rect.width) * 2 - 1).toFixed(3))
     wall.style.setProperty('--my', (((e.clientY - rect.top) / rect.height) * 2 - 1).toFixed(3))
   }
-
-  const preview = (i: number) => ({
-    onMouseEnter: () => {
-      setIndex(i)
-      setPaused(true)
-    },
-    onFocus: () => {
-      setIndex(i)
-      setPaused(true)
-    },
-    onMouseLeave: () => setPaused(false),
-    onBlur: () => setPaused(false),
-  })
 
   return (
     <section
@@ -74,7 +59,8 @@ export function Hero() {
 
       <DesignWall ref={wallRef} className="absolute inset-y-0 right-0 hidden w-[56%] lg:block" />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-5 pt-28 sm:px-8 lg:min-h-svh lg:pt-24 lg:pb-14">
+      {/* Extra bottom room on large screens: the Work section fades in over the last 10rem of this view. */}
+      <div className="relative mx-auto flex max-w-7xl flex-col justify-center px-5 pt-28 sm:px-8 lg:min-h-svh lg:pt-24 lg:pb-54">
         <div className="max-w-[40rem]">
 
           <h1 id="hero-title" className="mt-7 text-[clamp(2.9rem,min(6vw,9vh),5.5rem)] leading-[0.95] font-semibold tracking-[-0.055em]">
@@ -106,47 +92,23 @@ export function Hero() {
 
           <p className="mt-7 max-w-md animate-rise text-lg leading-relaxed text-ink/70 [animation-delay:300ms] sm:text-xl">{h.sub}</p>
 
-          <div className="mt-8 flex animate-rise flex-wrap gap-2.5 [animation-delay:380ms] sm:mt-9 sm:gap-3">
+          <div className="mt-8 flex animate-rise flex-wrap items-center gap-x-6 gap-y-3 [animation-delay:380ms] sm:mt-9">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3.5 text-[15px] font-medium text-white shadow-[0_12px_30px_-10px_rgb(0_0_0/0.45)] transition hover:-translate-y-0.5 sm:px-6"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[15px] font-medium shadow-[0_10px_30px_-12px_rgb(80_60_120/0.35)] ring-1 ring-ink/6 transition hover:-translate-y-0.5 hover:shadow-[0_14px_34px_-12px_rgb(80_60_120/0.45)] sm:px-6"
             >
               {h.primaryCta}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a
               href="#work"
-              className="group inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white/70 px-5 py-3.5 text-[15px] font-medium backdrop-blur transition hover:bg-white sm:px-6"
+              className="group inline-flex items-center gap-2 py-3 text-[15px] font-medium text-ink/65 transition hover:text-ink"
             >
               {h.secondaryCta}
               <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
             </a>
           </div>
 
-          <nav aria-labelledby="styles-label" className="mt-10 hidden animate-rise [animation-delay:460ms] sm:block">
-            <p id="styles-label" className="font-mono text-[11px] tracking-wider text-ink/60 uppercase">
-              {h.stylesLabel}
-            </p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {STYLE_ORDER.map((id, i) => (
-                <li key={id}>
-                  <a
-                    href={`#${STYLES[id].section}`}
-                    {...preview(i)}
-                    className={cn(
-                      'inline-flex items-center gap-2 rounded-full border py-1.5 pr-3.5 pl-2 text-sm font-medium backdrop-blur transition-all duration-300',
-                      i === index
-                        ? 'border-ink bg-ink text-white shadow-[0_8px_20px_-8px_rgb(0_0_0/0.5)]'
-                        : 'border-ink/10 bg-white/70 text-ink/75 hover:border-ink/25',
-                    )}
-                  >
-                    <span className="size-3 rounded-full ring-2 ring-white/70" style={{ background: STYLES[id].dot }} />
-                    {t.styles[id].name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
         </div>
       </div>
 

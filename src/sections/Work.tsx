@@ -46,14 +46,23 @@ export function Work() {
   const w = t.work
 
   return (
-    <section id="work" aria-labelledby="work-title" className="relative isolate bg-void font-tech text-white">
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    // No hard edge after the landing view: the top overlaps it by --seam and fades in (a little lavender reaches the hero),
+    // then darkens (violet → dark) over the rest of --blend, so the dark part sits in this section rather than the hero.
+    <section
+      id="work"
+      aria-labelledby="work-title"
+      className="relative isolate -mt-(--seam) -scroll-mt-[calc(var(--blend)-4rem)] font-tech text-white [--blend:18rem] [--seam:6rem] lg:[--blend:26rem] lg:[--seam:10rem]"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden work-blend"
+      >
         <div className="bg-grid absolute inset-0 mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)]" />
-        <div className="absolute -top-40 left-1/2 h-144 w-240 -translate-x-1/2 rounded-full bg-violet/25 blur-[140px]" />
+        <div className="absolute top-[calc(var(--blend)-18rem)] left-1/2 h-144 w-240 -translate-x-1/2 rounded-full bg-violet/25 blur-[140px]" />
         <div className="absolute top-[45%] -right-40 size-120 rounded-full bg-aqua/10 blur-[120px]" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+      <div className="mx-auto max-w-7xl px-5 pt-[calc(var(--blend)+3rem)] pb-24 sm:px-8 sm:pt-[calc(var(--blend)+4rem)] sm:pb-32">
         <StyleTag id="dark" className="border-b border-white/10 pb-4 text-white/80" />
 
         <Reveal className="mt-14 flex flex-col gap-8 lg:mt-20 lg:flex-row lg:items-end lg:justify-between">

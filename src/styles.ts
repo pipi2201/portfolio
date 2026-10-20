@@ -21,5 +21,10 @@ export const STYLES: Record<StyleId, StyleMeta> = {
 
 export const SECTION_IDS = STYLE_ORDER.map((id) => STYLES[id].section)
 
+/** The style a section is designed in (undefined for the landing view). */
+export function styleOfSection(section: string): StyleId | undefined {
+  return STYLE_ORDER.find((id) => STYLES[id].section === section)
+}
+
 /** Every anchor in scroll order, including the landing view (which has no style of its own). */
 export const PAGE_IDS = ['top', ...SECTION_IDS]
