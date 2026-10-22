@@ -1,9 +1,5 @@
-/** The five design languages shown on the page, in scroll order. */
-export const STYLE_ORDER = ['dark', 'soft', 'warm', 'bold', 'elegant'] as const
-
-export type StyleId = (typeof STYLE_ORDER)[number]
-
 type StyleMeta = {
+  /** counts the styled sections down the page */
   number: string
   /** id of the section that is designed in this style */
   section: string
@@ -11,21 +7,32 @@ type StyleMeta = {
   dot: string
 }
 
-export const STYLES: Record<StyleId, StyleMeta> = {
+/** The six design languages shown on the page, in scroll order. */
+export const STYLES = {
   dark: { number: '01', section: 'work', dot: '#8b7bff' },
-  soft: { number: '02', section: 'why', dot: '#5f8f7d' },
+  clear: { number: '02', section: 'about', dot: '#1f4fa3' },
   warm: { number: '03', section: 'process', dot: '#c4583b' },
-  bold: { number: '04', section: 'packages', dot: '#ffd93d' },
-  elegant: { number: '05', section: 'contact', dot: '#cbae7a' },
-}
+  soft: { number: '04', section: 'why', dot: '#5f8f7d' },
+  bold: { number: '05', section: 'packages', dot: '#ffd93d' },
+  elegant: { number: '06', section: 'contact', dot: '#cbae7a' },
+} satisfies Record<string, StyleMeta>
 
-/** Accent of the brand look shared by the landing view and the About section. */
-export const BRAND_DOT = '#6c5ce7'
+export type StyleId = keyof typeof STYLES
 
-/** The style a section is designed in (undefined for the landing view and About). */
+/** The five styles of the hero's cycling word, in that order. Clear (the About section) is not among them. */
+export const HERO_STYLES = ['dark', 'soft', 'warm', 'bold', 'elegant'] as const satisfies readonly StyleId[]
+
+export type HeroStyleId = (typeof HERO_STYLES)[number]
+
+const STYLE_IDS = Object.keys(STYLES) as StyleId[]
+
+/** The style a section is designed in (undefined for the landing view). */
 export function styleOfSection(section: string): StyleId | undefined {
-  return STYLE_ORDER.find((id) => STYLES[id].section === section)
+  return STYLE_IDS.find((id) => STYLES[id].section === section)
 }
 
 /** Every anchor in scroll order. */
-export const PAGE_IDS = ['top', 'work', 'why', 'process', 'packages', 'about', 'contact']
+export const PAGE_IDS = ['top', 'work', 'about', 'process', 'why', 'packages', 'contact']
+
+/** The styles in the order their sections appear on the page, for the side navigation. */
+export const STYLES_ON_PAGE = PAGE_IDS.map(styleOfSection).filter((id) => id !== undefined)

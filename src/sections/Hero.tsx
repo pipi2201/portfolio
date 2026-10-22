@@ -3,10 +3,10 @@ import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { DesignWall } from '../components/DesignWall'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
-import { STYLE_ORDER, type StyleId } from '../styles'
+import { HERO_STYLES, type HeroStyleId } from '../styles'
 
 /** How the cycling headline word looks in each style. */
-const WORD: Record<StyleId, string> = {
+const WORD: Record<HeroStyleId, string> = {
   dark: 'bg-linear-to-r from-[#7c6cff] to-[#1fb3c7] bg-clip-text pr-[0.04em] font-tech font-bold tracking-[-0.06em] text-transparent',
   soft: 'rounded-full bg-sage-soft px-[0.3em] leading-[1.1] font-soft font-extrabold tracking-[-0.03em] text-sage-deep',
   warm: 'font-warm-soft font-normal tracking-[-0.02em] text-clay-deep italic',
@@ -26,12 +26,12 @@ export function Hero() {
   const h = t.hero
   const [index, setIndex] = useState(0)
   const wallRef = useRef<HTMLDivElement>(null)
-  const styleId = STYLE_ORDER[index]
+  const styleId = HERO_STYLES[index]
 
   useEffect(() => {
     // Visitors who prefer less motion keep the first word.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const timer = window.setInterval(() => setIndex((i) => (i + 1) % STYLE_ORDER.length), CYCLE_MS)
+    const timer = window.setInterval(() => setIndex((i) => (i + 1) % HERO_STYLES.length), CYCLE_MS)
     return () => window.clearInterval(timer)
   }, [])
 

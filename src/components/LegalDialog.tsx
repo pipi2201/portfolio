@@ -40,16 +40,13 @@ export function LegalDialog({ open, onClose }: { open: LegalId | null; onClose: 
               <X className="size-5" />
             </button>
           </div>
-          <div className="mt-8 space-y-6">
-            {doc.blocks.map((block) => (
-              <section key={block.heading}>
-                <h3 className="text-sm font-semibold">{block.heading}</h3>
-                <div className="mt-1.5 space-y-1 leading-relaxed text-ink/70">
-                  {block.lines.map((line) => (
-                    <p key={line}>{line}</p>
-                  ))}
-                </div>
-              </section>
+          <div className="mt-8 space-y-5 leading-relaxed text-ink/70">
+            {doc.blocks.map((lines) => (
+              <div key={lines[0]}>
+                {lines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
             ))}
           </div>
         </div>

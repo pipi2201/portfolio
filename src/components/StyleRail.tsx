@@ -1,7 +1,7 @@
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
-import { PAGE_IDS, STYLE_ORDER, STYLES } from '../styles'
+import { PAGE_IDS, STYLES, STYLES_ON_PAGE } from '../styles'
 
 /** Floating side navigation on wide screens: one dot per style, the current one enlarged. */
 export function StyleRail() {
@@ -17,7 +17,7 @@ export function StyleRail() {
       )}
     >
       <ul className="flex flex-col items-center gap-2 rounded-full border border-ink/7 bg-white/80 p-1.5 shadow-[0_12px_32px_-14px_rgb(0_0_0/0.3)] backdrop-blur-xl">
-        {STYLE_ORDER.map((id) => {
+        {STYLES_ON_PAGE.map((id) => {
           const style = STYLES[id]
           const isActive = active === style.section
           const label = `${style.number} · ${t.styles[id]}`

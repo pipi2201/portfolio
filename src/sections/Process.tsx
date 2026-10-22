@@ -4,18 +4,8 @@ import { StyleTag } from '../components/StyleTag'
 import { useInView } from '../hooks/useInView'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
+import { tornEdge } from '../lib/tornEdge'
 
-/** A deterministic, slightly irregular edge, like paper torn by hand. */
-function tornEdge(width = 1440, depth = 22, step = 18) {
-  let seed = 11
-  const random = () => {
-    seed = (seed * 16807) % 2147483647
-    return seed / 2147483647
-  }
-  let d = 'M0 0 L0 12'
-  for (let x = step; x < width; x += step) d += ` L${x} ${(6 + random() * depth).toFixed(1)}`
-  return `${d} L${width} 12 L${width} 0 Z`
-}
 const TORN_EDGE = tornEdge()
 
 /** Wraps hand-drawn SVG strokes so they draw themselves once they scroll into view. */
@@ -46,11 +36,12 @@ export function Process() {
   return (
     <section id="process" aria-labelledby="process-title" className="relative isolate overflow-hidden bg-sand font-warm-soft text-espresso">
       <div aria-hidden className="noise pointer-events-none absolute inset-0 -z-10 opacity-[0.28] mix-blend-multiply" />
+      {/* The torn edge: a strip of the section above (About, white) ripped off the top of this one. */}
       <svg
         aria-hidden
         viewBox="0 0 1440 30"
         preserveAspectRatio="none"
-        className="absolute inset-x-0 top-0 h-6 w-full text-mist drop-shadow-[0_2px_1px_rgb(59_42_31/0.12)] sm:h-7"
+        className="absolute inset-x-0 top-0 h-6 w-full text-white drop-shadow-[0_2px_1px_rgb(59_42_31/0.12)] sm:h-7"
       >
         <path d={TORN_EDGE} fill="currentColor" />
       </svg>

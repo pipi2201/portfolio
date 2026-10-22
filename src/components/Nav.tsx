@@ -3,26 +3,27 @@ import { useEffect, useState } from 'react'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
-import { BRAND_DOT, PAGE_IDS, STYLES, styleOfSection, type StyleId } from '../styles'
+import { PAGE_IDS, STYLES, styleOfSection, type StyleId } from '../styles'
 import { LanguageSwitch } from './LanguageSwitch'
 import { LogoMark } from './LogoMark'
 
 /** The call-to-action takes on the colour of the style being scrolled through. */
 const CTA_ACCENT: Record<StyleId, string> = {
   dark: 'bg-violet-deep text-white shadow-violet-deep/35',
+  clear: 'bg-enamel text-white shadow-enamel/35',
   soft: 'bg-sage-deep text-white shadow-sage-deep/35',
   warm: 'bg-clay-deep text-white shadow-clay-deep/35',
   bold: 'bg-bubblegum text-ink shadow-bubblegum/40',
   elegant: 'bg-gold text-forest shadow-gold/45',
 }
 
-/** On the landing view and About it takes the brand violet. */
+/** On the landing view it takes the brand violet. */
 const CTA_BRAND = 'bg-violet-deep text-white shadow-violet-deep/35'
 
-/** The dot under a nav link: its section's style colour, or the brand violet for About. */
+/** The dot under a nav link: its section's style colour. */
 const dotOf = (id: string) => {
   const style = styleOfSection(id)
-  return style ? STYLES[style].dot : BRAND_DOT
+  return style && STYLES[style].dot
 }
 
 const CTA_BASE =
@@ -49,8 +50,8 @@ export function Nav() {
         className="relative flex w-full items-center gap-1 rounded-full border border-ink/6 bg-white/85 p-1.5 pl-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_1px_2px_rgb(0_0_0/0.04),0_12px_32px_-12px_rgb(40_30_80/0.2)] backdrop-blur-2xl backdrop-saturate-150 lg:w-auto"
       >
         <a href="#top" onClick={() => setOpen(false)} className="mr-auto flex items-center gap-2.5 rounded-full py-1 lg:mr-5">
-          <LogoMark className="h-4.25 w-auto" />
-          <span className="font-editorial text-[1.35rem] leading-none tracking-tight whitespace-nowrap">Ines Puhr</span>
+          <LogoMark className="h-4.75 w-auto" />
+          <span className="font-editorial text-[1.35rem] leading-none tracking-tight whitespace-nowrap">ines puhr</span>
         </a>
 
         <ul className="hidden items-center lg:flex">

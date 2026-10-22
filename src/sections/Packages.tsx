@@ -29,9 +29,9 @@ function Sticker({ children, className }: { children: ReactNode; className?: str
   )
 }
 
-function Marquee({ items }: { items: string[] }) {
+function Marquee({ items, className }: { items: string[]; className?: string }) {
   return (
-    <div className="relative left-[-5%] w-[110%] -rotate-2 border-y-[3px] border-ink bg-ink py-3 text-sun">
+    <div className={cn('-rotate-2 border-y-[3px] border-ink bg-ink py-3 text-sun', className)}>
       <div className="flex w-max animate-marquee">
         {[...items, ...items].map((item, i) => (
           <span
@@ -48,18 +48,24 @@ function Marquee({ items }: { items: string[] }) {
   )
 }
 
-/** Style 04 · Bold & playful: sunshine yellow, thick outlines, hard shadows and a sticker. */
+/** Style 05 · Bold & playful: sunshine yellow, thick outlines, hard shadows and a sticker. */
 export function Packages({ onChoose }: { onChoose: (id: PlanId) => void }) {
   const { t } = useLang()
   const p = t.packages
 
   return (
-    <section id="packages" aria-labelledby="packages-title" className="relative isolate overflow-hidden bg-sun font-playful text-ink">
-      <div className="pt-10">
-        <Marquee items={p.marquee} />
-      </div>
+    // The section starts --tilt + 3rem early, over the bottom of the process section. Its yellow begins along a line
+    // with the marquee's -2° slope, right under the band's centre, so the band covers the boundary like a strip of tape.
+    // At the bottom it leaves room for the contact section's arch (--arch).
+    <section
+      id="packages"
+      aria-labelledby="packages-title"
+      className="relative isolate -mt-[calc(var(--tilt)+3rem)] overflow-hidden font-playful text-ink"
+    >
+      <div aria-hidden className="absolute inset-0 -z-10 bg-sun [clip-path:polygon(0_calc(var(--tilt)+3rem),100%_3rem,100%_100%,0_100%)]" />
+      <Marquee items={p.marquee} className="absolute top-[calc(3rem+var(--tilt)/2)] left-[-5%] w-[110%] -translate-y-1/2" />
 
-      <div className="wrap pt-16 pb-18 lg:pt-20 lg:pb-24">
+      <div className="wrap pt-[calc(var(--tilt)+8.5rem)] pb-[calc(4.5rem+var(--arch))] lg:pt-[calc(var(--tilt)+9.5rem)] lg:pb-[calc(6rem+var(--arch))]">
         <Reveal>
           <StyleTag id="bold" className="font-semibold" />
           <h2 id="packages-title" className="mt-4 text-[clamp(2.6rem,7.6vw,6.25rem)] leading-[0.95] font-extrabold tracking-[-0.045em]">
@@ -73,14 +79,14 @@ export function Packages({ onChoose }: { onChoose: (id: PlanId) => void }) {
         <div className="mt-14 grid gap-8 lg:grid-cols-3 lg:gap-6">
           {p.plans.map((plan, i) => (
             <Reveal key={plan.id} delay={i * 120} className="h-full">
-              <article className={cn('relative flex h-full flex-col rounded-3xl border-[3px] border-ink p-7 shadow-hard sm:p-8', CARD[plan.id])}>
+              <article className={cn('relative flex h-full flex-col rounded-3xl border-[3px] border-ink p-6 shadow-hard sm:p-7', CARD[plan.id])}>
                 {plan.sticker && <Sticker className="absolute -top-12 -right-1 rotate-12 sm:-right-6">{plan.sticker}</Sticker>}
 
-                <p className="text-sm font-extrabold tracking-wide uppercase">{plan.label}</p>
-                <h3 className="mt-2 text-4xl leading-none font-extrabold tracking-[-0.03em]">{plan.name}</h3>
-                <p className="mt-3 text-lg leading-snug font-medium">{plan.tagline}</p>
+                <p className="self-start rounded-full border-2 border-ink bg-sun px-3 py-0.5 text-sm font-extrabold">{plan.price}</p>
+                <h3 className="mt-3 text-3xl leading-none font-extrabold tracking-[-0.03em]">{plan.name}</h3>
+                <p className="mt-2 leading-snug font-medium">{plan.tagline}</p>
 
-                <ul className="mt-6 flex-1 space-y-3">
+                <ul className="mt-5 flex-1 space-y-2.5">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex gap-3 leading-snug font-medium">
                       <span className="mt-px grid size-5.5 shrink-0 place-items-center rounded-md border-2 border-ink bg-white">
@@ -91,14 +97,14 @@ export function Packages({ onChoose }: { onChoose: (id: PlanId) => void }) {
                   ))}
                 </ul>
 
-                <p className="mt-7 font-extrabold">
+                <p className="mt-6 font-extrabold">
                   {p.goodFor}: {plan.goodFor}
                 </p>
 
                 <a
                   href="#contact"
                   onClick={() => onChoose(plan.id)}
-                  className="group mt-5 flex items-center justify-between rounded-2xl border-[3px] border-ink bg-ink px-5 py-3.5 font-bold text-white shadow-hard-sm transition-[translate,box-shadow,background-color,color] hover:bg-white hover:text-ink active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
+                  className="group mt-4 flex items-center justify-between rounded-2xl border-[3px] border-ink bg-ink px-5 py-3 font-bold text-white shadow-hard-sm transition-[translate,box-shadow,background-color,color] hover:bg-white hover:text-ink active:translate-x-0.75 active:translate-y-0.75 active:shadow-none"
                 >
                   {plan.cta}
                   <ArrowRight className="size-5 transition-transform group-hover:translate-x-1" strokeWidth={2.5} />

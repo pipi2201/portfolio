@@ -1,28 +1,29 @@
-import { STYLE_ORDER, STYLES } from '../styles'
+import { STYLES, type StyleId } from '../styles'
 
-// Dice-five layout: one dot per section style, read left to right, top to bottom.
-const POSITIONS = [
-  [3.6, 3.6],
-  [13.4, 3.6],
-  [8.5, 8.5],
-  [3.6, 13.4],
-  [13.4, 13.4],
-]
+/** All six styles, in hue order clockwise from the top, so the ring reads as a colour wheel. */
+const WHEEL: StyleId[] = ['dark', 'warm', 'elegant', 'bold', 'soft', 'clear']
+
+const DOT = 3.3
+/** Distance of each dot from the centre: neighbours just touch. */
+const RING = 2 * DOT
 
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 17 17" className={className} aria-hidden>
-      {STYLE_ORDER.map((id, i) => (
-        <circle
-          key={id}
-          cx={POSITIONS[i][0]}
-          cy={POSITIONS[i][1]}
-          r="3.3"
-          fill={STYLES[id].dot}
-          stroke={id === 'bold' ? '#151515' : 'none'}
-          strokeWidth="0.7"
-        />
-      ))}
+    <svg viewBox="-10.4 -10.4 20.8 20.8" className={className} aria-hidden>
+      {WHEEL.map((id, i) => {
+        const angle = (i / WHEEL.length - 0.25) * 2 * Math.PI
+        return (
+          <circle
+            key={id}
+            cx={RING * Math.cos(angle)}
+            cy={RING * Math.sin(angle)}
+            r={DOT}
+            fill={STYLES[id].dot}
+            stroke={id === 'bold' ? '#151515' : 'none'}
+            strokeWidth="0.7"
+          />
+        )
+      })}
     </svg>
   )
 }

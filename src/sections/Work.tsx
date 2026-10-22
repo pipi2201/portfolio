@@ -1,7 +1,7 @@
 import { ArrowUpRight, Lock, MousePointer2, Pointer } from 'lucide-react'
 import { useState } from 'react'
-import bioresoFull from '../assets/work/bioreso-full.webp'
-import bioresoMobile from '../assets/work/bioreso-mobile.webp'
+import heilimpulsFull from '../assets/work/heilimpuls-full.webp'
+import heilimpulsMobile from '../assets/work/heilimpuls-mobile.webp'
 import kinderphysioFull from '../assets/work/kinderphysio-full.webp'
 import kinderphysioMobile from '../assets/work/kinderphysio-mobile.webp'
 import menzelFull from '../assets/work/menzel-witrisal-full.webp'
@@ -38,12 +38,11 @@ const PROJECTS: Project[] = [
     mobile: menzelMobile,
   },
   {
-    id: 'bioreso',
-    url: 'https://bioreso.ines.codes/',
-    domain: 'bioreso.ines.codes',
-    full: bioresoFull,
-    mobile: bioresoMobile,
-    wip: true,
+    id: 'heilimpuls',
+    url: 'https://heilimpuls.at/',
+    domain: 'heilimpuls.at',
+    full: heilimpulsFull,
+    mobile: heilimpulsMobile,
   },
 ]
 
@@ -57,6 +56,7 @@ export function Work() {
   return (
     // No hard edge after the landing view: the top overlaps it by --seam and fades in (a little lavender reaches the hero),
     // then darkens (violet → dark) over the rest of --blend, so the dark part sits in this section rather than the hero.
+    // The bottom is a hard edge into the white About section.
     <section
       id="work"
       aria-labelledby="work-title"
@@ -64,9 +64,10 @@ export function Work() {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden work-blend"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden work-blend seam-in"
       >
-        <div className="bg-grid absolute inset-0 mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,black,transparent)]" />
+        {/* The grid fades in as the background darkens and runs to the bottom, behind every project. */}
+        <div className="bg-grid absolute inset-0 mask-[linear-gradient(to_bottom,transparent_calc(var(--blend)*0.4),black_var(--blend))]" />
         <div className="absolute top-[calc(var(--blend)-18rem)] left-1/2 h-144 w-240 -translate-x-1/2 rounded-full bg-violet/25 blur-[140px]" />
         <div className="absolute top-[45%] -right-40 size-120 rounded-full bg-aqua/10 blur-[120px]" />
       </div>

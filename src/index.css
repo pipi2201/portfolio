@@ -13,13 +13,12 @@
   --font-warm: 'Fraunces Variable', ui-serif, Georgia, serif;
   --font-playful: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
   --font-elegant: 'Cormorant Garamond Variable', ui-serif, Georgia, serif;
+  --font-clear: 'Lexend Variable', ui-sans-serif, system-ui, sans-serif;
 
   /* Brand basics: nav, landing view, legal dialog */
   --color-paper: #f4f1ea;
   --color-ink: #151515;
   --color-vermilion: #d9502a;
-  --color-haze: #f6f1f7;
-  --color-haze-deep: #e9e0f3;
 
   /* 01 · Dark & modern */
   --color-void: #09090b;
@@ -28,7 +27,11 @@
   --color-violet-deep: #6c5ce7;
   --color-aqua: #5ce1e6;
 
-  /* 02 · Soft & reassuring */
+  /* 02 · Clear & friendly (on white) */
+  --color-navy: #14213d;
+  --color-enamel: #1f4fa3;
+
+  /* 04 · Soft & reassuring */
   --color-mist: #edf3ef;
   --color-pine: #1d3b33;
   --color-sage: #5f8f7d;
@@ -44,13 +47,13 @@
   --color-ochre: #e3a33b;
   --color-butter: #f7dc8e;
 
-  /* 04 · Bold & playful */
+  /* 05 · Bold & playful */
   --color-sun: #ffd93d;
   --color-bubblegum: #ff85bd;
   --color-lilac: #bcaaff;
   --color-mint: #7fe3b4;
 
-  /* 05 · Elegant & timeless */
+  /* 06 · Elegant & timeless */
   --color-forest: #0f2a24;
   --color-gold: #cbae7a;
   --color-ivory: #f2ece0;
@@ -114,10 +117,19 @@
 @layer base {
   :root {
     --gutter: 1.25rem;
+    /* Section boundaries (see Packages and Contact): how far the page rises across its width under the -2° marquee
+       (tan 2° of the viewport width), and the height of the arch the contact section starts with. */
+    --tilt: 3.49vw;
+    --arch: 3rem;
   }
   @media (min-width: 40rem) {
     :root {
       --gutter: 2rem;
+    }
+  }
+  @media (min-width: 64rem) {
+    :root {
+      --arch: 6rem;
     }
   }
 
@@ -171,9 +183,26 @@
 }
 
 /*
- * Background of the Work section's top, which overlaps the landing view by --seam: fades in, then runs from lavender
- * through violet into the dark background over --blend. Both follow a smoothstep curve (stops generated, lightness
- * spaced evenly in OKLab): a gradient that changes speed abruptly shows up as a visible line.
+ * For a section background that overlaps the section above by --seam: fades it in over that overlap, along a smoothstep
+ * curve. (A fade that changes speed abruptly shows up as a visible line.)
+ */
+@utility seam-in {
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0) 0,
+    rgb(0 0 0 / 0.074) calc(var(--seam) * 0.167),
+    rgb(0 0 0 / 0.259) calc(var(--seam) * 0.333),
+    rgb(0 0 0 / 0.5) calc(var(--seam) * 0.5),
+    rgb(0 0 0 / 0.741) calc(var(--seam) * 0.667),
+    rgb(0 0 0 / 0.926) calc(var(--seam) * 0.833),
+    black var(--seam)
+  );
+}
+
+/*
+ * Background of the Work section's top, which overlaps the landing view by --seam (faded in with seam-in), then runs
+ * from lavender through violet into the dark background over --blend. The stops follow a smoothstep curve too
+ * (generated, lightness spaced evenly in OKLab).
  */
 @utility work-blend {
   background-color: var(--color-void);
@@ -192,16 +221,6 @@
     #151423 calc(var(--blend) * 0.833),
     #0c0c11 calc(var(--blend) * 0.917),
     var(--color-void) var(--blend)
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    rgb(0 0 0 / 0) 0,
-    rgb(0 0 0 / 0.074) calc(var(--seam) * 0.167),
-    rgb(0 0 0 / 0.259) calc(var(--seam) * 0.333),
-    rgb(0 0 0 / 0.5) calc(var(--seam) * 0.5),
-    rgb(0 0 0 / 0.741) calc(var(--seam) * 0.667),
-    rgb(0 0 0 / 0.926) calc(var(--seam) * 0.833),
-    black var(--seam)
   );
 }
 

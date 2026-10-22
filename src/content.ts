@@ -9,15 +9,15 @@ export type Lang = 'de' | 'en'
 export type UspId = 'contact' | 'language' | 'carefree'
 export type PlanId = 'essential' | 'practice' | 'carefree'
 export type InterestId = PlanId | 'unsure'
-export type ProjectId = 'kinderphysio' | 'menzel' | 'bioreso'
-export type LegalId = 'imprint' | 'privacy'
+export type ProjectId = 'kinderphysio' | 'menzel' | 'heilimpuls'
+export type LegalId = 'privacy'
 
 type Usp = { id: UspId; title: string; text: string }
 type Project = { name: string; client: string; description: string }
 type Plan = {
   id: PlanId
-  /** small line above the name */
-  label: string
+  /** how it is paid: one-off fixed price or monthly add-on, shown above the name */
+  price: string
   name: string
   tagline: string
   features: string[]
@@ -25,7 +25,8 @@ type Plan = {
   cta: string
   sticker?: string
 }
-type LegalDoc = { title: string; blocks: { heading: string; lines: string[] }[] }
+/** each block is a group of lines, shown as one paragraph */
+type LegalDoc = { title: string; blocks: string[][] }
 
 const de = {
   meta: {
@@ -41,7 +42,7 @@ const de = {
       { id: 'packages', label: 'Pakete' },
       { id: 'contact', label: 'Kontakt' },
     ],
-    cta: 'Gratis Gespräch buchen',
+    cta: 'Gratis Erstgespräch',
     openMenu: 'Menü öffnen',
     closeMenu: 'Menü schließen',
     language: 'Sprache',
@@ -50,6 +51,7 @@ const de = {
   styleTag: 'Stil',
   styles: {
     dark: 'Dunkel & Modern',
+    clear: 'Klar & Freundlich',
     soft: 'Sanft & Vertrauensvoll',
     warm: 'Warm & Handgemacht',
     bold: 'Mutig & Verspielt',
@@ -57,17 +59,17 @@ const de = {
   } satisfies Record<StyleId, string>,
 
   hero: {
-    // Reads: "Websites für deine Praxis, / so [word] / wie du." The word cycles, one per style in STYLE_ORDER.
+    // Reads: "Websites für deine Praxis, / so [word] / wie du." The word cycles, one per style in HERO_STYLES.
     title: { start: 'Websites für deine Praxis,', before: 'so', after: 'wie du.' },
     words: ['modern', 'ruhig', 'herzlich', 'verspielt', 'elegant'],
     srTitle: 'Websites für deine Praxis, so individuell wie du.',
-    sub: 'Individuelle Websites für Therapeut:innen, Coaches und Energetiker:innen. Eine Person vom Erstgespräch bis zum Launch: ohne Agentur, ohne Fachchinesisch.',
-    primaryCta: 'Gratis 15-Minuten-Gespräch buchen',
+    sub: 'Individuelle Websites für Ärzt:innen, Therapeut:innen und kleine Unternehmen. Eine Person vom Erstgespräch bis zum Launch: ohne Agentur, ohne Fachchinesisch.',
+    primaryCta: 'Gratis Erstgespräch',
     secondaryCta: 'Meine Arbeiten',
   },
 
   work: {
-    title: { before: 'Websites, die schon ', em: 'arbeiten', after: '.' },
+    title: { before: 'Websites, die bereits ', em: 'arbeiten', after: '.' },
     hintHover: 'Zum Durchscrollen über eine Vorschau fahren',
     hintTouch: 'Zum Durchscrollen auf eine Vorschau tippen',
     previewLabel: 'Vorschau von {name} durchscrollen',
@@ -86,21 +88,20 @@ const de = {
         client: 'Allgemein- & integrative Medizin · Graz',
         description: 'Ruhig und persönlich: elegante Schrift, frisches Grün, warme Fotos.',
       },
-      bioreso: {
-        name: 'emotion Bioresonanz',
-        client: 'Apothekerin & Gesundheitscoach · Linz',
-        description: 'Sanfte Farbverläufe und viel Weißraum, ganz im Zeichen der Balance.',
+      heilimpuls: {
+        name: 'Dr. Sabine Bogner',
+        client: 'Allgemein- & Ganzheitsmedizin · Gallneukirchen',
+        description: 'Ein Waldweg als Einstieg, dazu tiefes Grün und klare Schrift.',
       },
     } as Record<ProjectId, Project>,
   },
 
   why: {
     title: 'Alles aus einer Hand.',
-    lead: 'Keine Agentur, sondern eine Ansprechperson: von der ersten Idee bis lange nach dem Launch.',
     items: [
       { id: 'contact', title: 'Eine Ansprechperson', text: 'Du sprichst immer mit mir. Keine Kundenbetreuer, keine Übergaben, keine Warteschleife.' },
       { id: 'language', title: 'Klare Worte', text: 'Ich erkläre alles in Alltagssprache und kümmere mich um die Technik.' },
-      { id: 'carefree', title: 'Sorglos', text: 'Klare Pakete, ehrliche Beratung und auf Wunsch Hosting und Updates dazu.' },
+      { id: 'carefree', title: 'Sorglos', text: 'Ehrliche Beratung und keine versteckten Kosten - auf Wunsch Hosting und Updates als monatliches Paket dazu.' },
     ] as Usp[],
   },
 
@@ -112,42 +113,40 @@ const de = {
       { title: 'Kennenlernen', text: 'Ein kostenloses Gespräch: Was brauchst du, was gefällt dir?' },
       { title: 'Erster Entwurf', text: 'Ein Logo oder ein paar Stichworte reichen für den Anfang.' },
       { title: 'Feinschliff', text: 'Wir passen an, bis es sich richtig anfühlt.' },
-      { title: 'Online', text: 'Deine Website geht live, und ich kümmere mich weiter um sie.' },
+      { title: 'Online', text: 'Deine Website geht live, und ich kümmere mich weiter darum.' },
     ],
   },
 
   packages: {
     title: { line1: 'Drei Arten der', line2: 'Zusammenarbeit.' },
-    lead: 'Such dir einen Ausgangspunkt aus. Das passende Paket und einen Fixpreis finden wir gemeinsam im Gratis-Gespräch.',
+    lead: 'Wähle aus 2 Website-Paketen zum Fixpreis aus, dazu auf Wunsch monatliche Betreuung. Das passende Paket finden wir gemeinsam im Gratis-Erstgespräch.',
     marquee: ['Persönlich', 'Ohne Fachchinesisch', 'Sorglos', 'Eine Ansprechperson'],
     goodFor: 'Ideal für',
     // The numbers of pages and rounds of changes are suggestions from the design spec: adjust them to your offer.
     plans: [
       {
         id: 'essential',
-        label: 'Online gehen',
+        price: 'Fixpreis, einmalig',
         name: 'Basis',
-        tagline: 'Eine klare, schöne Website auf einer Seite.',
+        tagline: 'Eine kompakte, individuelle Website für dich.',
         features: [
           'Alles auf einer Seite: über dich, Angebot, Kontakt',
           'Klares Design in deinen Farben und mit deinem Logo',
           'Sieht auf Handy, Tablet und Computer gut aus',
-          'Kontaktformular oder Buchungslink',
           '1 Korrekturrunde',
         ],
-        goodFor: 'den Start oder ein kleines Budget',
+        goodFor: 'ein kleines Budget',
         cta: 'Nach Basis fragen',
       },
       {
         id: 'practice',
-        label: 'Am umfangreichsten',
+        price: 'Fixpreis, einmalig',
         name: 'Praxis',
-        tagline: 'Eine individuelle Website, die sich nach dir anfühlt.',
+        tagline: 'Eine umfangreiche, professionelle Website, die sich nach dir anfühlt.',
         features: [
+          'Alle Leistungen aus Basis inklusive',
           'Bis zu 5 Seiten, z. B. Über mich, Angebot, Preise, Kontakt',
-          'Komplett individuelles Design',
-          'Hilfe bei Texten und Fotos',
-          'Bei Google gefunden werden: Grundeinrichtung inklusive',
+          'Zusatzleistungen, z. B. Bildbearbeitung, Buchungstool',
           '3 Korrekturrunden',
         ],
         goodFor: 'etablierte Praxen',
@@ -155,7 +154,7 @@ const de = {
       },
       {
         id: 'carefree',
-        label: 'Zu jedem Paket dazu',
+        price: 'Monatlich, zubuchbar',
         name: 'Sorglos',
         tagline: 'Deine Website, jeden Monat betreut.',
         features: [
@@ -173,21 +172,21 @@ const de = {
   },
 
   about: {
-    title: { before: 'Hallo, ich bin ', em: 'Ines', after: '.' },
+    title: 'Hallo, ich bin Ines.',
     paragraphs: [
-      'Ich gestalte und programmiere Websites für Therapeut:innen, Coaches und Energetiker:innen. Du sprichst vom ersten Gespräch bis zum Launch mit mir, und auch danach.',
-      'Ich erkläre alles in einfachen Worten und kümmere mich um die ganze Technik, damit du dich auf deine Klient:innen konzentrieren kannst.',
+      'Ich gestalte und programmiere Websites für Ärzt:innen, Therapeut:innen und kleine Unternehmen.',
+      'Ich bin ehemalige Intensivkrankenpflegerin und habe vor 3 Jahren meinen Karrierewechsel in die IT gewagt.',
+      'Ich arbeite alleine und möchte eine Zusammenarbeit anbieten, die im Gegensatz zu großen Agenturen steht. Du sprichst vom ersten Gespräch bis zum Launch mit mir, und darüber hinaus. Ich erkläre alles in einfachen Worten und kümmere mich um die ganze Technik, damit du dich auf deine Klient:innen konzentrieren kannst.',
     ],
-    facts: ['Zuhause auf Zypern', 'Ich arbeite auf Deutsch & Englisch'],
     photoAlt: 'Ines Puhr',
   },
 
   contact: {
-    title: { before: 'Erzähl mir von deiner ', em: 'Praxis', after: '.' },
+    title: { before: 'Erzähl mir von deiner ', em: 'Vision', after: '.' },
     lead: 'Die Details besprechen wir in einem kurzen, kostenlosen Gespräch.',
     form: {
       whoLabel: 'Was machst du?',
-      who: ['Therapie', 'Coaching', 'Energetik & Wellness', 'Arztpraxis', 'Etwas anderes'],
+      who: ['Arztpraxis', 'Therapie', 'Coaching', 'Wellness', 'Etwas anderes'],
       interestLabel: 'Welches Paket klingt passend?',
       interests: [
         { id: 'essential', label: 'Basis' },
@@ -208,72 +207,41 @@ const de = {
       fallbackMessage: 'ich interessiere mich für eine Website und würde gerne einen Termin für ein kurzes Gespräch ausmachen.',
       whoLine: 'Mein Bereich',
       interestLine: 'Paket',
-      signoff: 'Viele Grüße',
+      signoff: 'Freundliche Grüße',
     },
     direct: {
       eyebrow: 'Oder direkt',
       copy: 'Adresse kopieren',
       copied: 'Kopiert!',
+      whatsapp: 'Auf WhatsApp schreiben',
+      whatsappText: 'Hallo Ines, ich interessiere mich für eine Website.',
     },
     referral: {
       text: 'Du kennst jemanden, der eine Website braucht?',
       share: 'Seite weiterempfehlen',
       shared: 'Link kopiert!',
-      shareText: 'Ines Puhr gestaltet Websites für Therapie, Coaching und Energetik. Schau mal:',
+      shareText: 'Ines Puhr gestaltet Websites für Ärzt:innen, Therapeut:innen und kleine Unternehmen. Schau mal:',
     },
   },
 
   footer: {
-    role: 'Websites für Therapie & Coaching',
-    imprint: 'Impressum',
+    role: 'Webdesign & Softwareentwicklung',
+    rights: 'Alle Rechte vorbehalten',
+    address: 'Affenberg 46, 4204 Reichenau im Mühlkreis',
     privacy: 'Datenschutz',
     top: 'Nach oben',
   },
 
   legal: {
     close: 'Schließen',
-    imprint: {
-      title: 'Impressum',
-      blocks: [
-        {
-          heading: 'Angaben gemäß § 5 ECG und § 25 MedienG',
-          lines: ['Ines Puhr', 'Webdesign & Softwareentwicklung', '[Straße und Hausnummer]', '[PLZ Ort], Österreich'],
-        },
-        { heading: 'Kontakt', lines: ['E-Mail: ines.puhr@outlook.at'] },
-        {
-          heading: 'Unternehmensangaben',
-          lines: ['Gewerbe: [bitte ergänzen]', 'Gewerbebehörde: [bitte ergänzen]', 'Kammerzugehörigkeit: [bitte ergänzen]', 'UID-Nummer: [falls vorhanden]'],
-        },
-      ],
-    } as LegalDoc,
     privacy: {
       title: 'Datenschutz',
       blocks: [
-        {
-          heading: 'Kurz gesagt',
-          lines: [
-            'Diese Website verwendet keine Cookies, keine Analyse- oder Tracking-Tools und lädt keine Inhalte von Drittanbietern. Schriften und Bilder werden direkt von diesem Server ausgeliefert.',
-          ],
-        },
-        {
-          heading: 'Server-Logfiles',
-          lines: [
-            'Beim Aufruf der Website speichert der Webserver technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, Browsertyp) für kurze Zeit, um einen sicheren Betrieb zu gewährleisten (Art. 6 Abs. 1 lit. f DSGVO).',
-          ],
-        },
-        {
-          heading: 'Kontakt per E-Mail',
-          lines: [
-            'Wenn du mir schreibst, verwende ich deine Angaben ausschließlich zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Das Anfrageformular dieser Seite speichert oder überträgt selbst keine Daten — es bereitet nur eine E-Mail in deinem E-Mail-Programm vor.',
-          ],
-        },
-        {
-          heading: 'Deine Rechte',
-          lines: [
-            'Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch — eine kurze E-Mail genügt. Beschwerden kannst du bei der Österreichischen Datenschutzbehörde (dsb.gv.at) einbringen.',
-          ],
-        },
-        { heading: 'Verantwortlich', lines: ['Ines Puhr, [Adresse], ines.puhr@outlook.at'] },
+        ['Diese Website setzt keine Cookies, verwendet kein Tracking und lädt nichts von Drittanbietern.'],
+        ['Der Webserver speichert beim Aufruf kurz technisch notwendige Daten wie IP-Adresse und Uhrzeit, um die Seite sicher zu betreiben (Art. 6 Abs. 1 lit. f DSGVO).'],
+        ['Schreibst du mir per E-Mail oder WhatsApp, nutze ich deine Angaben nur für deine Anfrage (Art. 6 Abs. 1 lit. b DSGVO); bei WhatsApp gelten zusätzlich die Datenschutzbestimmungen von Meta.'],
+        ['Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie auf Beschwerde bei der Datenschutzbehörde (dsb.gv.at).'],
+        ['Verantwortlich: Ines Puhr, ines.puhr@outlook.at'],
       ],
     } as LegalDoc,
   },
@@ -295,7 +263,7 @@ const en: Content = {
       { id: 'packages', label: 'Packages' },
       { id: 'contact', label: 'Contact' },
     ],
-    cta: 'Book a free call',
+    cta: 'Free intro call',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     language: 'Language',
@@ -304,6 +272,7 @@ const en: Content = {
   styleTag: 'Style',
   styles: {
     dark: 'Dark & Modern',
+    clear: 'Clear & Friendly',
     soft: 'Soft & Reassuring',
     warm: 'Warm & Handmade',
     bold: 'Bold & Playful',
@@ -314,8 +283,8 @@ const en: Content = {
     title: { start: 'Websites for your practice,', before: 'as', after: 'as you.' },
     words: ['modern', 'calm', 'warm', 'playful', 'elegant'],
     srTitle: 'Websites for your practice, as individual as you.',
-    sub: 'Custom-designed websites for therapists, coaches and healers. One person from first call to launch day, with no agency and no tech talk.',
-    primaryCta: 'Book a free 15-min call',
+    sub: 'Custom websites for doctors, therapists and small businesses. One person from first call to launch: no agency, no tech jargon.',
+    primaryCta: 'Free intro call',
     secondaryCta: 'See my work',
   },
 
@@ -339,21 +308,20 @@ const en: Content = {
         client: 'General & integrative medicine · Graz',
         description: 'Calm and personal: an elegant typeface, fresh greens, warm photos.',
       },
-      bioreso: {
-        name: 'emotion Bioresonanz',
-        client: 'Pharmacist & health coach · Linz',
-        description: 'Soft gradients and plenty of white space, all about balance.',
+      heilimpuls: {
+        name: 'Dr. Sabine Bogner',
+        client: 'General & holistic medicine · Gallneukirchen',
+        description: 'A forest path to start, with deep greens and clean type.',
       },
     },
   },
 
   why: {
     title: 'Everything from one pair of hands.',
-    lead: 'Not an agency. Just one person to talk to, from the first idea to long after launch.',
     items: [
       { id: 'contact', title: 'One contact', text: 'You always talk to me. No account managers, no handovers, no waiting in a queue.' },
       { id: 'language', title: 'Plain language', text: 'I explain everything in everyday words and handle the technical side for you.' },
-      { id: 'carefree', title: 'Carefree', text: 'Clear packages, honest advice, and hosting and updates taken care of if you want.' },
+      { id: 'carefree', title: 'Carefree', text: 'Honest advice and no hidden costs, plus hosting and updates as a monthly package if you want them.' },
     ],
   },
 
@@ -371,43 +339,41 @@ const en: Content = {
 
   packages: {
     title: { line1: 'Three ways to', line2: 'work together.' },
-    lead: 'Pick a starting point. We’ll find the right fit and a fixed price together in a free call.',
+    lead: 'Choose from two fixed-price website packages, plus monthly care if you want it. We’ll find the right one together in a free intro call.',
     marquee: ['Personal', 'No tech jargon', 'Carefree', 'One contact'],
-    goodFor: 'Good for',
+    goodFor: 'Ideal for',
     plans: [
       {
         id: 'essential',
-        label: 'Get online',
+        price: 'Fixed price, paid once',
         name: 'Essential',
-        tagline: 'A clear, beautiful one-page website.',
+        tagline: 'A compact, custom website for you.',
         features: [
           'Everything on one page: about, offers, contact',
           'Clean design matched to your colours and logo',
           'Looks great on phone, tablet and desktop',
-          'Contact form or booking link',
           '1 round of changes',
         ],
-        goodFor: 'starting out or a small budget',
+        goodFor: 'a small budget',
         cta: 'Ask about Essential',
       },
       {
         id: 'practice',
-        label: 'Most complete',
-        name: 'Practice',
-        tagline: 'A custom website that feels like you.',
+        price: 'Fixed price, paid once',
+        name: 'Signature',
+        tagline: 'A comprehensive, professional website that feels like you.',
         features: [
+          'All Essential features included',
           'Up to 5 pages, e.g. About, Offers, Prices, Contact',
-          'Fully custom design',
-          'Help with your texts and photos',
-          'Found on Google: basic setup included',
+          'Additional services, e.g. photo editing, booking tool',
           '3 rounds of changes',
         ],
         goodFor: 'established practices',
-        cta: 'Ask about Practice',
+        cta: 'Ask about Signature',
       },
       {
         id: 'carefree',
-        label: 'Add to any package',
+        price: 'Monthly add-on',
         name: 'Carefree',
         tagline: 'Your website, looked after every month.',
         features: [
@@ -425,25 +391,25 @@ const en: Content = {
   },
 
   about: {
-    title: { before: 'Hi, I’m ', em: 'Ines', after: '.' },
+    title: 'Hi, I’m Ines.',
     paragraphs: [
-      'I design and build websites for therapists, coaches and healers. You’ll talk to me from the first call to launch day, and after.',
-      'I explain things in plain words and take care of all the technical stuff, so you can focus on your clients.',
+      'I design and build websites for doctors, therapists and small businesses.',
+      'I’m a former intensive care nurse and made the leap into IT three years ago.',
+      'I work on my own and offer the opposite of a big agency. You talk to me from the first call to launch day, and beyond. I explain everything in plain words and take care of all the tech, so you can focus on your clients.',
     ],
-    facts: ['Based in Cyprus', 'Working in English & German'],
     photoAlt: 'Ines Puhr',
   },
 
   contact: {
-    title: { before: 'Tell me about your ', em: 'practice', after: '.' },
+    title: { before: 'Tell me about your ', em: 'vision', after: '.' },
     lead: 'We’ll go over the details in a short, free call.',
     form: {
       whoLabel: 'What do you do?',
-      who: ['Therapy', 'Coaching', 'Healing & wellness', 'Medical practice', 'Something else'],
+      who: ['Medical practice', 'Therapy', 'Coaching', 'Wellness', 'Something else'],
       interestLabel: 'Which package sounds right?',
       interests: [
         { id: 'essential', label: 'Essential' },
-        { id: 'practice', label: 'Practice' },
+        { id: 'practice', label: 'Signature' },
         { id: 'carefree', label: 'Carefree' },
         { id: 'unsure', label: 'Not sure yet' },
       ],
@@ -466,66 +432,35 @@ const en: Content = {
       eyebrow: 'Or directly',
       copy: 'Copy address',
       copied: 'Copied!',
+      whatsapp: 'Message me on WhatsApp',
+      whatsappText: 'Hi Ines, I’m interested in a website.',
     },
     referral: {
       text: 'Know someone who needs a website?',
       share: 'Recommend this page',
       shared: 'Link copied!',
-      shareText: 'Ines Puhr designs websites for therapists, coaches and healers. Take a look:',
+      shareText: 'Ines Puhr designs websites for doctors, therapists and small businesses. Take a look:',
     },
   },
 
   footer: {
-    role: 'Websites for therapists & coaches',
-    imprint: 'Legal notice',
+    role: 'Web design & software development',
+    rights: 'All rights reserved',
+    address: 'Affenberg 46, 4204 Reichenau im Mühlkreis',
     privacy: 'Privacy',
     top: 'Back to top',
   },
 
   legal: {
     close: 'Close',
-    imprint: {
-      title: 'Legal notice',
-      blocks: [
-        {
-          heading: 'Information according to § 5 ECG and § 25 MedienG',
-          lines: ['Ines Puhr', 'Web design & software development', '[Street and number]', '[Postcode City], Austria'],
-        },
-        { heading: 'Contact', lines: ['Email: ines.puhr@outlook.at'] },
-        {
-          heading: 'Business details',
-          lines: ['Trade: [please add]', 'Trade authority: [please add]', 'Chamber membership: [please add]', 'VAT ID: [if applicable]'],
-        },
-      ],
-    },
     privacy: {
       title: 'Privacy',
       blocks: [
-        {
-          heading: 'In short',
-          lines: [
-            'This website uses no cookies, no analytics or tracking tools and loads no third-party content. Fonts and images are served directly from this server.',
-          ],
-        },
-        {
-          heading: 'Server log files',
-          lines: [
-            'When you visit the website, the web server briefly stores technically necessary data (e.g. IP address, date and time, requested page, browser type) to keep it running securely (Art. 6(1)(f) GDPR).',
-          ],
-        },
-        {
-          heading: 'Contact by email',
-          lines: [
-            'If you write to me, I use your details solely to handle your enquiry (Art. 6(1)(b) GDPR). The enquiry form on this page does not store or send any data itself — it only prepares an email in your email app.',
-          ],
-        },
-        {
-          heading: 'Your rights',
-          lines: [
-            'You have the right to access, rectification, erasure, restriction of processing, data portability and objection — a short email is all it takes. You can lodge complaints with the Austrian Data Protection Authority (dsb.gv.at).',
-          ],
-        },
-        { heading: 'Controller', lines: ['Ines Puhr, [address], ines.puhr@outlook.at'] },
+        ['This website sets no cookies, uses no tracking and loads nothing from third parties.'],
+        ['The web server briefly stores technically necessary data such as your IP address and the time of access to keep the site running securely (Art. 6(1)(f) GDPR).'],
+        ['If you write to me by email or WhatsApp, I use your details only to handle your enquiry (Art. 6(1)(b) GDPR); for WhatsApp, Meta’s privacy policy applies as well.'],
+        ['You have the right to access, rectification, erasure, restriction, data portability and objection, and to complain to the Austrian Data Protection Authority (dsb.gv.at).'],
+        ['Controller: Ines Puhr, ines.puhr@outlook.at'],
       ],
     },
   },

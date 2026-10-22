@@ -34,10 +34,10 @@ export default function App() {
       <main id="main">
         <Hero />
         <Work />
-        <Why />
-        <Process />
-        <Packages onChoose={choosePlan} />
         <About />
+        <Process />
+        <Why />
+        <Packages onChoose={choosePlan} />
         <Contact interests={interests} setInterests={setInterests} />
       </main>
       <Footer onOpenLegal={setLegal} />

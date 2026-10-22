@@ -13,6 +13,7 @@ import '@fontsource-variable/fraunces/soft-italic.css'
 import '@fontsource-variable/bricolage-grotesque/opsz.css'
 import '@fontsource-variable/cormorant-garamond'
 import '@fontsource-variable/cormorant-garamond/wght-italic.css'
+import '@fontsource-variable/lexend'
 
 import './index.css'
 import App from './App.tsx'
