@@ -50,7 +50,7 @@ export function Nav() {
         className="relative flex w-full items-center gap-1 rounded-full border border-ink/6 bg-white/85 p-1.5 pl-4 shadow-[inset_0_1px_0_rgb(255_255_255/0.9),0_1px_2px_rgb(0_0_0/0.04),0_12px_32px_-12px_rgb(40_30_80/0.2)] backdrop-blur-2xl backdrop-saturate-150 lg:w-auto"
       >
         <a href="#top" onClick={() => setOpen(false)} aria-label={t.nav.home} className="mr-auto flex items-center rounded-full py-1 lg:mr-5">
-          <LogoMark className="h-4.75 w-auto" />
+          <LogoMark className="h-6.5 w-auto" />
         </a>
 
         <ul className="hidden items-center lg:flex">

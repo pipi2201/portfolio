@@ -28,9 +28,18 @@ const LANGUAGES: Record<Lang, { name: string; flag: ReactNode }> = {
       </svg>
     ),
   },
+  el: {
+    name: 'Ελληνικά',
+    flag: (
+      <svg viewBox="0 0 27 18" preserveAspectRatio="xMidYMid slice">
+        <rect width="27" height="18" fill="#0d5eaf" />
+        <path d="M5 0v11M0 5h10M10 3h17M10 7h17M0 11h27M0 15h27" stroke="#fff" strokeWidth="2" />
+      </svg>
+    ),
+  },
 }
 
-const LANGS: Lang[] = ['en', 'de']
+const LANGS: Lang[] = ['en', 'de', 'el']
 
 function Flag({ lang }: { lang: Lang }) {
   return (

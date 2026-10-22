@@ -1,11 +1,11 @@
 /**
- * All copy on the page, in German and English.
- * The English object is typed against the German one, so both always have the same fields.
+ * All copy on the page, in German, English and Greek.
+ * The English and Greek objects are typed against the German one, so all three always have the same fields.
  * Rule of thumb: every message appears once, and every item is one sentence.
  */
 import type { StyleId } from './styles'
 
-export type Lang = 'de' | 'en'
+export type Lang = 'de' | 'en' | 'el'
 export type UspId = 'contact' | 'language' | 'carefree'
 export type PlanId = 'essential' | 'practice' | 'carefree'
 export type InterestId = PlanId | 'unsure'
@@ -214,7 +214,9 @@ const de = {
       eyebrow: 'Oder direkt',
       copy: 'Adresse kopieren',
       copied: 'Kopiert!',
+      call: 'Anrufen',
       whatsapp: 'Auf WhatsApp schreiben',
+      copyNumber: 'Nummer kopieren',
       whatsappText: 'Hallo Ines, ich interessiere mich für eine Website.',
     },
     referral: {
@@ -236,18 +238,18 @@ const de = {
     imprint: {
       title: 'Impressum',
       blocks: [
-        ['Patholux Software Ltd', 'Webdesign & Softwareentwicklung', '[Firmensitz]', 'ines.puhr@outlook.at'],
-        ['Registriert bei [Register], Nr. [bitte ergänzen]', 'UID: [falls vorhanden]'],
+        ['Patholux Software Ltd', 'Webdesign & Softwareentwicklung', 'Gladstonos 16, 8046 Paphos, Zypern', 'websites@patholux.com'],
+        ['Registrar of Companies Zypern, Nr. HE 498585', 'UID: CY60404468I'],
       ],
     } as LegalDoc,
     privacy: {
       title: 'Datenschutz',
       blocks: [
         ['Diese Website setzt keine Cookies, verwendet kein Tracking und lädt nichts von Drittanbietern.'],
-        ['Der Webserver speichert beim Aufruf kurz technisch notwendige Daten wie IP-Adresse und Uhrzeit, um die Seite sicher zu betreiben (Art. 6 Abs. 1 lit. f DSGVO).'],
+        ['Die Website läuft auf einem Server der Hetzner Online GmbH in Deutschland, der beim Aufruf kurz technisch notwendige Daten wie IP-Adresse und Uhrzeit speichert, um die Seite sicher zu betreiben (Art. 6 Abs. 1 lit. f DSGVO).'],
         ['Schreibst du mir per E-Mail oder WhatsApp, nutze ich deine Angaben nur für deine Anfrage (Art. 6 Abs. 1 lit. b DSGVO); bei WhatsApp gelten zusätzlich die Datenschutzbestimmungen von Meta.'],
-        ['Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie auf Beschwerde bei der Datenschutzbehörde (dsb.gv.at).'],
-        ['Verantwortlich: Patholux Software Ltd, ines.puhr@outlook.at'],
+        ['Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie auf Beschwerde beim Datenschutzbeauftragten in Zypern (dataprotection.gov.cy).'],
+        ['Verantwortlich: Patholux Software Ltd, websites@patholux.com'],
       ],
     } as LegalDoc,
   },
@@ -287,9 +289,9 @@ const en: Content = {
   },
 
   hero: {
-    title: { start: 'Websites for your practice,', before: 'as', after: 'as you.' },
+    title: { start: 'Websites for your work,', before: 'as', after: 'as you.' },
     words: ['modern', 'calm', 'warm', 'playful', 'elegant'],
-    srTitle: 'Websites for your practice, as individual as you.',
+    srTitle: 'Websites for your work, as individual as you.',
     sub: 'Custom websites for doctors, therapists and small businesses. One person from first call to launch: no agency, no tech jargon.',
     primaryCta: 'Free intro call',
     secondaryCta: 'See my work',
@@ -439,7 +441,9 @@ const en: Content = {
       eyebrow: 'Or directly',
       copy: 'Copy address',
       copied: 'Copied!',
+      call: 'Call',
       whatsapp: 'Message me on WhatsApp',
+      copyNumber: 'Copy number',
       whatsappText: 'Hi Ines, I’m interested in a website.',
     },
     referral: {
@@ -461,21 +465,247 @@ const en: Content = {
     imprint: {
       title: 'Legal notice',
       blocks: [
-        ['Patholux Software Ltd', 'Web design & software development', '[Registered office]', 'ines.puhr@outlook.at'],
-        ['Registered with [registry], No. [please add]', 'VAT ID: [if applicable]'],
+        ['Patholux Software Ltd', 'Web design & software development', 'Gladstonos 16, 8046 Paphos, Cyprus', 'websites@patholux.com'],
+        ['Registrar of Companies, Cyprus, No. HE 498585', 'VAT ID: CY60404468I'],
       ],
     },
     privacy: {
       title: 'Privacy',
       blocks: [
         ['This website sets no cookies, uses no tracking and loads nothing from third parties.'],
-        ['The web server briefly stores technically necessary data such as your IP address and the time of access to keep the site running securely (Art. 6(1)(f) GDPR).'],
+        ['The website runs on a server of Hetzner Online GmbH in Germany, which briefly stores technically necessary data such as your IP address and the time of access to keep the site running securely (Art. 6(1)(f) GDPR).'],
         ['If you write to me by email or WhatsApp, I use your details only to handle your enquiry (Art. 6(1)(b) GDPR); for WhatsApp, Meta’s privacy policy applies as well.'],
-        ['You have the right to access, rectification, erasure, restriction, data portability and objection, and to complain to the Austrian Data Protection Authority (dsb.gv.at).'],
-        ['Controller: Patholux Software Ltd, ines.puhr@outlook.at'],
+        ['You have the right to access, rectification, erasure, restriction, data portability and objection, and to complain to the Cyprus Commissioner for Personal Data Protection (dataprotection.gov.cy).'],
+        ['Controller: Patholux Software Ltd, websites@patholux.com'],
       ],
     },
   },
 }
 
-export const content: Record<Lang, Content> = { de, en }
+const el: Content = {
+  meta: {
+    title: 'Ιστοσελίδες για γιατρούς, θεραπευτές & μικρές επιχειρήσεις',
+  },
+  skipLink: 'Μετάβαση στο περιεχόμενο',
+  nav: {
+    label: 'Κύρια πλοήγηση',
+    home: 'Επιστροφή στην αρχή',
+    links: [
+      { id: 'work', label: 'Έργα' },
+      { id: 'about', label: 'Για μένα' },
+      { id: 'process', label: 'Διαδικασία' },
+      { id: 'packages', label: 'Πακέτα' },
+      { id: 'contact', label: 'Επικοινωνία' },
+    ],
+    cta: 'Δωρεάν συζήτηση',
+    openMenu: 'Άνοιγμα μενού',
+    closeMenu: 'Κλείσιμο μενού',
+    language: 'Γλώσσα',
+    rail: 'Στυλ σε αυτή τη σελίδα',
+  },
+  styleTag: 'Στυλ',
+  styles: {
+    dark: 'Σκούρο & μοντέρνο',
+    clear: 'Καθαρό & φιλικό',
+    soft: 'Απαλό & αξιόπιστο',
+    warm: 'Ζεστό & χειροποίητο',
+    bold: 'Τολμηρό & παιχνιδιάρικο',
+    elegant: 'Κομψό & διαχρονικό',
+  },
+
+  hero: {
+    // The words agree with "Ιστοσελίδες" (feminine plural) and stay short, so the second line fits on a phone.
+    title: { start: 'Ιστοσελίδες για τη δουλειά σου,', before: 'τόσο', after: 'όσο κι εσύ.' },
+    words: ['μοντέρνες', 'ήρεμες', 'ζεστές', 'ζωηρές', 'κομψές'],
+    srTitle: 'Ιστοσελίδες για τη δουλειά σου, τόσο μοναδικές όσο κι εσύ.',
+    sub: 'Ιστοσελίδες στα μέτρα σου για γιατρούς, θεραπευτές και μικρές επιχειρήσεις. Ένας άνθρωπος από την πρώτη συζήτηση μέχρι να βγει η σελίδα στον αέρα: χωρίς μεσάζοντες, χωρίς τεχνική ορολογία.',
+    primaryCta: 'Δωρεάν συζήτηση',
+    secondaryCta: 'Δες τα έργα μου',
+  },
+
+  work: {
+    title: { before: 'Ιστοσελίδες που ήδη ', em: 'δουλεύουν', after: '.' },
+    hintHover: 'Πέρασε το ποντίκι πάνω από μια προεπισκόπηση για να κυλήσει η σελίδα',
+    hintTouch: 'Πάτησε μια προεπισκόπηση για να κυλήσει η σελίδα',
+    previewLabel: 'Κύλιση στην προεπισκόπηση: {name}',
+    altDesktop: '{name}: η ιστοσελίδα σε υπολογιστή',
+    altMobile: '{name}: η ιστοσελίδα σε κινητό',
+    visit: 'Δες την ιστοσελίδα',
+    preview: 'Προεπισκόπηση',
+    projects: {
+      kinderphysio: {
+        name: 'Kinderphysiolinz',
+        client: 'Παιδική φυσικοθεραπεία · Λιντς',
+        description: 'Ένας εικονογραφημένος κόσμος του δάσους: παιχνιδιάρικος για τα παιδιά, αξιόπιστος για τους γονείς.',
+      },
+      menzel: {
+        name: 'Dr. Barbara Menzel-Witrisal',
+        client: 'Γενική & ενσωματωτική ιατρική · Γκρατς',
+        description: 'Ήρεμη και προσωπική: κομψή γραμματοσειρά, φρέσκο πράσινο, ζεστές φωτογραφίες.',
+      },
+      heilimpuls: {
+        name: 'Dr. Sabine Bogner',
+        client: 'Γενική & ολιστική ιατρική · Gallneukirchen',
+        description: 'Ένα μονοπάτι στο δάσος για αρχή, με βαθύ πράσινο και καθαρή γραμματοσειρά.',
+      },
+    },
+  },
+
+  why: {
+    title: 'Όλα από έναν άνθρωπο.',
+    items: [
+      { id: 'contact', title: 'Ένα πρόσωπο επικοινωνίας', text: 'Μιλάς πάντα μαζί μου. Χωρίς υπεύθυνους πελατών, χωρίς πήγαινε-έλα, χωρίς αναμονή.' },
+      { id: 'language', title: 'Καθαρά λόγια', text: 'Εξηγώ τα πάντα σε απλή, καθημερινή γλώσσα και αναλαμβάνω εγώ το τεχνικό κομμάτι.' },
+      { id: 'carefree', title: 'Χωρίς έγνοιες', text: 'Ειλικρινείς συμβουλές χωρίς κρυφές χρεώσεις, και αν θέλεις, φιλοξενία και ενημερώσεις ως μηνιαίο πακέτο.' },
+    ],
+  },
+
+  process: {
+    title: { before: 'Πώς θα δουλέψουμε ', em: 'μαζί' },
+    note: 'Η διαδικασία προσαρμόζεται σε σένα, όχι το αντίθετο.',
+    noteSignature: 'Ines',
+    steps: [
+      { title: 'Γνωριμία', text: 'Μια δωρεάν συζήτηση: τι χρειάζεσαι, τι σου αρέσει.' },
+      { title: 'Πρώτο σχέδιο', text: 'Ένα λογότυπο ή λίγες λέξεις-κλειδιά αρκούν για αρχή.' },
+      { title: 'Τελικές πινελιές', text: 'Προσαρμόζουμε μέχρι να σου ταιριάζει απόλυτα.' },
+      { title: 'Στον αέρα', text: 'Η ιστοσελίδα σου βγαίνει στον αέρα και συνεχίζω να τη φροντίζω.' },
+    ],
+  },
+
+  packages: {
+    title: { line1: 'Τρεις τρόποι', line2: 'συνεργασίας.' },
+    lead: 'Διάλεξε ανάμεσα σε δύο πακέτα ιστοσελίδας σε σταθερή τιμή και, αν θέλεις, πρόσθεσε μηνιαία φροντίδα. Το σωστό πακέτο το βρίσκουμε μαζί στη δωρεάν πρώτη συζήτηση.',
+    marquee: ['Προσωπικά', 'Χωρίς τεχνική ορολογία', 'Χωρίς έγνοιες', 'Ένα πρόσωπο επικοινωνίας'],
+    goodFor: 'Ιδανικό για',
+    plans: [
+      {
+        id: 'essential',
+        price: 'Σταθερή τιμή, εφάπαξ',
+        name: 'Βασικό',
+        tagline: 'Μια συμπαγής ιστοσελίδα, φτιαγμένη για σένα.',
+        features: [
+          'Όλα σε μία σελίδα: για σένα, υπηρεσίες, επικοινωνία',
+          'Καθαρός σχεδιασμός με τα χρώματα και το λογότυπό σου',
+          'Φαίνεται τέλεια σε κινητό, τάμπλετ και υπολογιστή',
+          '1 γύρος διορθώσεων',
+        ],
+        goodFor: 'μικρό προϋπολογισμό',
+        cta: 'Ρώτα για το Βασικό',
+      },
+      {
+        id: 'practice',
+        price: 'Σταθερή τιμή, εφάπαξ',
+        name: 'Πλήρες',
+        tagline: 'Μια εκτενής, επαγγελματική ιστοσελίδα που σου μοιάζει.',
+        features: [
+          'Όλα όσα περιλαμβάνει το Βασικό',
+          'Έως 5 σελίδες, π.χ. Για μένα, Υπηρεσίες, Τιμές, Επικοινωνία',
+          'Επιπλέον υπηρεσίες, π.χ. επεξεργασία φωτογραφιών, σύστημα κρατήσεων',
+          '3 γύροι διορθώσεων',
+        ],
+        goodFor: 'εδραιωμένα ιατρεία',
+        cta: 'Ρώτα για το Πλήρες',
+      },
+      {
+        id: 'carefree',
+        price: 'Μηνιαίο πρόσθετο',
+        name: 'Ξέγνοιαστο',
+        tagline: 'Η ιστοσελίδα σου, σε καλά χέρια κάθε μήνα.',
+        features: [
+          'Φιλοξενία στον δικό μου διακομιστή',
+          'Ενημερώσεις ασφαλείας και λογισμικού',
+          'Μικρές αλλαγές, π.χ. ωράριο λειτουργίας',
+          'Προσωπική υποστήριξη μέσω email',
+        ],
+        goodFor: 'να μην ασχοληθείς ξανά με τεχνικά',
+        sticker: 'Εντελώς ξέγνοιαστα!',
+        cta: 'Ρώτα για το Ξέγνοιαστο',
+      },
+    ],
+    more: { text: 'Χρειάζεσαι κάτι μεγαλύτερο, όπως σύστημα κρατήσεων ή δικό σου λογισμικό;', link: 'Ας μιλήσουμε.' },
+  },
+
+  about: {
+    title: 'Γεια, είμαι η Ines.',
+    paragraphs: [
+      'Σχεδιάζω και φτιάχνω ιστοσελίδες για γιατρούς, θεραπευτές και μικρές επιχειρήσεις.',
+      'Ήμουν νοσηλεύτρια στην εντατική και πριν από τρία χρόνια έκανα το άλμα στην πληροφορική.',
+      'Δουλεύω μόνη μου και προσφέρω το αντίθετο από μια μεγάλη εταιρεία. Μιλάς μαζί μου από την πρώτη συζήτηση μέχρι την ημέρα που η σελίδα βγαίνει στον αέρα, και μετά. Εξηγώ τα πάντα με απλά λόγια και αναλαμβάνω όλο το τεχνικό κομμάτι, για να επικεντρωθείς στους ανθρώπους που εξυπηρετείς.',
+    ],
+    photoAlt: 'Ines Puhr',
+  },
+
+  contact: {
+    title: { before: 'Πες μου για το ', em: 'όραμά σου', after: '.' },
+    lead: 'Τις λεπτομέρειες τις συζητάμε σε μια σύντομη, δωρεάν κλήση.',
+    form: {
+      whoLabel: 'Με τι ασχολείσαι;',
+      who: ['Ιατρείο', 'Θεραπεία', 'Coaching', 'Ευεξία', 'Κάτι άλλο'],
+      interestLabel: 'Ποιο πακέτο σου ταιριάζει;',
+      interests: [
+        { id: 'essential', label: 'Βασικό' },
+        { id: 'practice', label: 'Πλήρες' },
+        { id: 'carefree', label: 'Ξέγνοιαστο' },
+        { id: 'unsure', label: 'Δεν ξέρω ακόμα' },
+      ],
+      nameLabel: 'Το όνομά σου',
+      namePlaceholder: 'Όνομα και επώνυμο',
+      messageLabel: 'Το μήνυμά σου',
+      messagePlaceholder: 'Λίγες λέξεις αρκούν.',
+      submit: 'Σύνταξη email',
+      hint: 'Ανοίγει την εφαρμογή email σου. Εδώ δεν αποθηκεύεται τίποτα.',
+    },
+    mail: {
+      subject: 'Αίτημα για ιστοσελίδα',
+      greeting: 'Γεια σου Ines,',
+      fallbackMessage: 'Ενδιαφέρομαι για μια ιστοσελίδα και θα ήθελα να κλείσουμε μια σύντομη συζήτηση.',
+      whoLine: 'Με τι ασχολούμαι',
+      interestLine: 'Πακέτο',
+      signoff: 'Φιλικά',
+    },
+    direct: {
+      eyebrow: 'Ή απευθείας',
+      copy: 'Αντιγραφή διεύθυνσης',
+      copied: 'Αντιγράφηκε!',
+      call: 'Κάλεσέ με',
+      whatsapp: 'Στείλε μου στο WhatsApp',
+      copyNumber: 'Αντιγραφή αριθμού',
+      whatsappText: 'Γεια σου Ines, ενδιαφέρομαι για μια ιστοσελίδα.',
+    },
+    referral: {
+      text: 'Ξέρεις κάποιον που χρειάζεται ιστοσελίδα;',
+      share: 'Πρότεινε τη σελίδα',
+      shared: 'Ο σύνδεσμος αντιγράφηκε!',
+      shareText: 'Ιστοσελίδες για γιατρούς, θεραπευτές και μικρές επιχειρήσεις. Ρίξε μια ματιά:',
+    },
+  },
+
+  footer: {
+    imprint: 'Νομικές πληροφορίες',
+    privacy: 'Απόρρητο',
+    top: 'Επιστροφή στην αρχή',
+  },
+
+  legal: {
+    close: 'Κλείσιμο',
+    imprint: {
+      title: 'Νομικές πληροφορίες',
+      blocks: [
+        ['Patholux Software Ltd', 'Σχεδιασμός ιστοσελίδων & ανάπτυξη λογισμικού', 'Γλάδστωνος 16, 8046 Πάφος, Κύπρος', 'websites@patholux.com'],
+        ['Έφορος Εταιρειών Κύπρου, Αρ. HE 498585', 'Αρ. ΦΠΑ: CY60404468I'],
+      ],
+    },
+    privacy: {
+      title: 'Απόρρητο',
+      blocks: [
+        ['Αυτή η ιστοσελίδα δεν χρησιμοποιεί cookies, δεν κάνει παρακολούθηση και δεν φορτώνει τίποτα από τρίτους.'],
+        ['Η ιστοσελίδα φιλοξενείται σε διακομιστή της Hetzner Online GmbH στη Γερμανία, ο οποίος αποθηκεύει για λίγο τεχνικά απαραίτητα δεδομένα, όπως τη διεύθυνση IP και την ώρα πρόσβασης, για την ασφαλή λειτουργία της σελίδας (άρθρο 6 παρ. 1 στοιχ. στ΄ ΓΚΠΔ).'],
+        ['Αν μου γράψεις με email ή WhatsApp, χρησιμοποιώ τα στοιχεία σου μόνο για το αίτημά σου (άρθρο 6 παρ. 1 στοιχ. β΄ ΓΚΠΔ)· για το WhatsApp ισχύει επιπλέον η πολιτική απορρήτου της Meta.'],
+        ['Έχεις δικαίωμα πρόσβασης, διόρθωσης, διαγραφής, περιορισμού, φορητότητας και εναντίωσης, καθώς και υποβολής καταγγελίας στον Επίτροπο Προστασίας Δεδομένων Προσωπικού Χαρακτήρα της Κύπρου (dataprotection.gov.cy).'],
+        ['Υπεύθυνος επεξεργασίας: Patholux Software Ltd, websites@patholux.com'],
+      ],
+    },
+  },
+}
+
+export const content: Record<Lang, Content> = { de, en, el }

@@ -6,11 +6,12 @@ type LanguageContextValue = { lang: Lang; setLang: (lang: Lang) => void; t: Cont
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 /**
- * English is the default. German is reachable via the switch or a shareable `?lang=de` link.
+ * English is the default. German and Greek are reachable via the switch or a shareable `?lang=de` / `?lang=el` link.
  * The choice lives in the URL only, so nothing is stored on the visitor's device.
  */
 function initialLang(): Lang {
-  return new URLSearchParams(window.location.search).get('lang') === 'de' ? 'de' : 'en'
+  const param = new URLSearchParams(window.location.search).get('lang')
+  return param === 'de' || param === 'el' ? param : 'en'
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

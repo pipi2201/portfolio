@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Copy, Share2 } from 'lucide-react'
+import { ArrowRight, Check, Copy, Phone, Share2 } from 'lucide-react'
 import { useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
 import { Reveal } from '../components/Reveal'
 import { StyleTag } from '../components/StyleTag'
@@ -19,6 +19,11 @@ const field =
   'mt-2 w-full border-b border-ivory/25 bg-transparent py-3 font-sans text-base text-ivory transition-colors placeholder:text-ivory/45 focus:border-gold focus:outline-none'
 
 const label = 'font-sans text-xs tracking-[0.2em] text-gold uppercase'
+
+// The ends of the phone pill: icon-only, inset focus ring so it stays inside the border.
+const phoneEnd = 'flex items-center text-gold transition-colors hover:bg-gold/10 focus-visible:-outline-offset-4'
+
+const phoneDigits = SITE.phone.replace(/\D/g, '')
 
 function Ornament({ className }: { className?: string }) {
   return (
@@ -46,6 +51,7 @@ export function Contact({ interests, setInterests }: ContactProps) {
   const [message, setMessage] = useState('')
   const [copied, setCopied] = useState(false)
   const [shared, setShared] = useState(false)
+  const [numberCopied, setNumberCopied] = useState(false)
 
   // Packages can be combined (Carefree goes with any of them); "Not sure yet" stands on its own.
   const toggleInterest = (id: InterestId) =>
@@ -78,6 +84,17 @@ export function Contact({ interests, setInterests }: ContactProps) {
       setTimeout(() => setCopied(false), 2000)
     } catch {
       window.location.href = `mailto:${SITE.email}`
+    }
+  }
+
+  // Clicking the number copies it; if the clipboard is unavailable, it stays selected for a manual copy.
+  async function copyPhone() {
+    try {
+      await navigator.clipboard.writeText(SITE.phone)
+      setNumberCopied(true)
+      setTimeout(() => setNumberCopied(false), 2000)
+    } catch {
+      /* clipboard unavailable */
     }
   }
 
@@ -227,17 +244,47 @@ export function Contact({ interests, setInterests }: ContactProps) {
                 {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
                 <span aria-live="polite">{copied ? c.direct.copied : c.direct.copy}</span>
               </button>
-              {/* wa.me opens the WhatsApp app on phones and WhatsApp Web on desktop, with the text already typed in. */}
-              <a
-                href={`https://wa.me/${SITE.phone.replace(/\D/g, '')}?text=${encodeURIComponent(c.direct.whatsappText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${c.direct.whatsapp}: ${SITE.phone}`}
-                className="mx-auto mt-6 flex w-fit items-center gap-2.5 rounded-full border border-gold/40 px-5 py-2.5 font-sans text-[15px] text-ivory transition-colors hover:border-gold hover:text-gold"
-              >
-                <WhatsAppIcon className="size-5 text-gold" />
-                {SITE.phone}
-              </a>
+              {/* One pill, three targets: call | number (click copies) | WhatsApp, mirrored like the ornament below. */}
+              <div className="mx-auto mt-6 flex w-fit rounded-full border border-gold/40 font-sans text-[15px] text-ivory transition-colors hover:border-gold">
+                <a
+                  href={`tel:+${phoneDigits}`}
+                  aria-label={c.direct.call}
+                  title={c.direct.call}
+                  className={cn(phoneEnd, 'rounded-l-full pr-3 pl-4.5')}
+                >
+                  <Phone className="size-4.5" />
+                </a>
+                {/* "Copied!" fades in on top of the number, so the pill keeps its width. */}
+                <button
+                  type="button"
+                  onClick={copyPhone}
+                  aria-label={`${c.direct.copyNumber}: ${SITE.phone}`}
+                  className="relative grid cursor-copy px-3.5 py-2.5 transition-colors before:absolute before:inset-y-3 before:left-0 before:w-px before:bg-gold/30 after:absolute after:inset-y-3 after:right-0 after:w-px after:bg-gold/30 hover:text-gold focus-visible:-outline-offset-4"
+                >
+                  <span className={cn('col-start-1 row-start-1 transition-opacity duration-300 motion-reduce:transition-none', numberCopied && 'opacity-0')}>
+                    {SITE.phone}
+                  </span>
+                  <span aria-live="polite" className="col-start-1 row-start-1 flex items-center justify-center">
+                    {numberCopied && (
+                      <span className="inline-flex items-center gap-1.5 text-gold transition-opacity duration-300 motion-reduce:transition-none starting:opacity-0">
+                        <Check className="size-4" />
+                        {c.direct.copied}
+                      </span>
+                    )}
+                  </span>
+                </button>
+                {/* wa.me opens the WhatsApp app on phones and WhatsApp Web on desktop, with the text already typed in. */}
+                <a
+                  href={`https://wa.me/${phoneDigits}?text=${encodeURIComponent(c.direct.whatsappText)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={c.direct.whatsapp}
+                  title={c.direct.whatsapp}
+                  className={cn(phoneEnd, 'rounded-r-full pr-4.5 pl-3')}
+                >
+                  <WhatsAppIcon className="size-4.5" />
+                </a>
+              </div>
               <Ornament className="mx-auto my-8" />
               <p className="text-xl leading-snug text-ivory/80">{c.referral.text}</p>
               <button

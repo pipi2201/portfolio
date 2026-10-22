@@ -5,15 +5,16 @@
  * from these tokens, so a style can be tweaked in one place.
  */
 @theme {
-  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  /* The second family is a look-alike with Greek letters, which the style fonts lack. It only fills in for those. */
+  --font-sans: 'Geist Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, monospace;
-  --font-editorial: 'Instrument Serif', ui-serif, Georgia, serif;
-  --font-soft: 'Nunito Variable', ui-rounded, ui-sans-serif, system-ui, sans-serif;
-  --font-tech: 'Space Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-warm: 'Fraunces Variable', ui-serif, Georgia, serif;
-  --font-playful: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-elegant: 'Cormorant Garamond Variable', ui-serif, Georgia, serif;
-  --font-clear: 'Lexend Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: 'Instrument Serif', 'Noto Serif Display Variable', ui-serif, Georgia, serif;
+  --font-soft: 'Nunito Variable', 'Comfortaa Variable', ui-rounded, ui-sans-serif, system-ui, sans-serif;
+  --font-tech: 'Space Grotesk Variable', 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-warm: 'Fraunces Variable', 'Alegreya Variable', ui-serif, Georgia, serif;
+  --font-playful: 'Bricolage Grotesque Variable', 'Commissioner Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-elegant: 'Cormorant Garamond Variable', 'EB Garamond Variable', ui-serif, Georgia, serif;
+  --font-clear: 'Lexend Variable', 'Noto Sans Variable', ui-sans-serif, system-ui, sans-serif;
 
   /* Brand basics: nav, landing view, legal dialog */
   --color-paper: #f4f1ea;
