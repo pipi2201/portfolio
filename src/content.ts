@@ -10,7 +10,7 @@ export type UspId = 'contact' | 'language' | 'carefree'
 export type PlanId = 'essential' | 'practice' | 'carefree'
 export type InterestId = PlanId | 'unsure'
 export type ProjectId = 'kinderphysio' | 'menzel' | 'heilimpuls'
-export type LegalId = 'privacy'
+export type LegalId = 'imprint' | 'privacy'
 
 type Usp = { id: UspId; title: string; text: string }
 type Project = { name: string; client: string; description: string }
@@ -30,11 +30,12 @@ type LegalDoc = { title: string; blocks: string[][] }
 
 const de = {
   meta: {
-    title: 'Ines Puhr – Websites für Therapie, Coaching & Energetik',
+    title: 'Websites für Medizin, Therapie & kleine Unternehmen',
   },
   skipLink: 'Zum Inhalt springen',
   nav: {
     label: 'Hauptnavigation',
+    home: 'Zum Seitenanfang',
     links: [
       { id: 'work', label: 'Arbeiten' },
       { id: 'about', label: 'Über mich' },
@@ -220,20 +221,25 @@ const de = {
       text: 'Du kennst jemanden, der eine Website braucht?',
       share: 'Seite weiterempfehlen',
       shared: 'Link kopiert!',
-      shareText: 'Ines Puhr gestaltet Websites für Ärzt:innen, Therapeut:innen und kleine Unternehmen. Schau mal:',
+      shareText: 'Websites für Ärzt:innen, Therapeut:innen und kleine Unternehmen. Schau mal:',
     },
   },
 
   footer: {
-    role: 'Webdesign & Softwareentwicklung',
-    rights: 'Alle Rechte vorbehalten',
-    address: 'Affenberg 46, 4204 Reichenau im Mühlkreis',
+    imprint: 'Impressum',
     privacy: 'Datenschutz',
     top: 'Nach oben',
   },
 
   legal: {
     close: 'Schließen',
+    imprint: {
+      title: 'Impressum',
+      blocks: [
+        ['Patholux Software Ltd', 'Webdesign & Softwareentwicklung', '[Firmensitz]', 'ines.puhr@outlook.at'],
+        ['Registriert bei [Register], Nr. [bitte ergänzen]', 'UID: [falls vorhanden]'],
+      ],
+    } as LegalDoc,
     privacy: {
       title: 'Datenschutz',
       blocks: [
@@ -241,7 +247,7 @@ const de = {
         ['Der Webserver speichert beim Aufruf kurz technisch notwendige Daten wie IP-Adresse und Uhrzeit, um die Seite sicher zu betreiben (Art. 6 Abs. 1 lit. f DSGVO).'],
         ['Schreibst du mir per E-Mail oder WhatsApp, nutze ich deine Angaben nur für deine Anfrage (Art. 6 Abs. 1 lit. b DSGVO); bei WhatsApp gelten zusätzlich die Datenschutzbestimmungen von Meta.'],
         ['Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie auf Beschwerde bei der Datenschutzbehörde (dsb.gv.at).'],
-        ['Verantwortlich: Ines Puhr, ines.puhr@outlook.at'],
+        ['Verantwortlich: Patholux Software Ltd, ines.puhr@outlook.at'],
       ],
     } as LegalDoc,
   },
@@ -251,11 +257,12 @@ export type Content = typeof de
 
 const en: Content = {
   meta: {
-    title: 'Ines Puhr – Websites for therapists, coaches and healers',
+    title: 'Websites for doctors, therapists & small businesses',
   },
   skipLink: 'Skip to content',
   nav: {
     label: 'Main navigation',
+    home: 'Back to top',
     links: [
       { id: 'work', label: 'Work' },
       { id: 'about', label: 'About' },
@@ -439,20 +446,25 @@ const en: Content = {
       text: 'Know someone who needs a website?',
       share: 'Recommend this page',
       shared: 'Link copied!',
-      shareText: 'Ines Puhr designs websites for doctors, therapists and small businesses. Take a look:',
+      shareText: 'Websites for doctors, therapists and small businesses. Take a look:',
     },
   },
 
   footer: {
-    role: 'Web design & software development',
-    rights: 'All rights reserved',
-    address: 'Affenberg 46, 4204 Reichenau im Mühlkreis',
+    imprint: 'Legal notice',
     privacy: 'Privacy',
     top: 'Back to top',
   },
 
   legal: {
     close: 'Close',
+    imprint: {
+      title: 'Legal notice',
+      blocks: [
+        ['Patholux Software Ltd', 'Web design & software development', '[Registered office]', 'ines.puhr@outlook.at'],
+        ['Registered with [registry], No. [please add]', 'VAT ID: [if applicable]'],
+      ],
+    },
     privacy: {
       title: 'Privacy',
       blocks: [
@@ -460,7 +472,7 @@ const en: Content = {
         ['The web server briefly stores technically necessary data such as your IP address and the time of access to keep the site running securely (Art. 6(1)(f) GDPR).'],
         ['If you write to me by email or WhatsApp, I use your details only to handle your enquiry (Art. 6(1)(b) GDPR); for WhatsApp, Meta’s privacy policy applies as well.'],
         ['You have the right to access, rectification, erasure, restriction, data portability and objection, and to complain to the Austrian Data Protection Authority (dsb.gv.at).'],
-        ['Controller: Ines Puhr, ines.puhr@outlook.at'],
+        ['Controller: Patholux Software Ltd, ines.puhr@outlook.at'],
       ],
     },
   },

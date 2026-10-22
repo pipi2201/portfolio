@@ -49,7 +49,7 @@ scripts/
   screenshot.mjs    captures a client website for the Work section
 ```
 
-**Language:** German is the default. The EN/DE switch in the nav changes the language, and `?lang=en` links straight to the English version. Nothing is stored on the visitor's device.
+**Language:** English is the default. The EN/DE switch in the nav changes the language, and `?lang=de` links straight to the German version. Nothing is stored on the visitor's device.
 
 ## Adding a project to "Work"
 
