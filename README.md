@@ -75,4 +75,4 @@ Nice to know for the privacy statement: the site sets no cookies, has no trackin
 - [ ] **Datenschutz:** fill in the address under `legal.privacy` and check the text matches your server setup (e.g. how long server logs are kept).
 - [ ] **Package details:** check the numbers in `packages.plans` in `src/content.ts` (1 round of changes, up to 5 pages, 3 rounds). They came from the design spec as suggestions.
 - [ ] **Location:** About says "Based in Cyprus". Make sure it matches the Impressum and privacy statement, which currently assume Austria.
-- [ ] **Social preview:** once the domain is known, add an `og:image` and `og:url` (absolute URLs) to `index.html`.
+- [x] **Social preview:** `og:image` in `index.html` points to `https://websites.ines.codes/og-image.jpg` (`public/og-image.jpg`, a 1200×630 crop of the design wall, without text so it suits every language). If the domain changes, update it. There is deliberately no `og:url` or canonical link: both would point `?lang=de` / `?lang=el` links back to the English page.
